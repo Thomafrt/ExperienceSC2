@@ -1,7 +1,30 @@
 body{
     background-color: black;
     display: block;
+    text-align: center;
+    margin-top: 50px;
 }
 p{
     color: white;
+}
+input{
+    background: none;
+    color : white;
+    border-color: white;
+    
+}
+.firstLine{
+    margin: 0%;
+}
+#bleu{
+    margin-right: 10%;
+}
+#jaune{
+    margin-left: 10%;
+}
+#rouge{
+    margin-right: 20%;
+}
+#vert{
+    margin-left: 20%;
 }
