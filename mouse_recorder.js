@@ -1,4 +1,4 @@
-var recorder = {
+var mouse_recorder = {
     
   moveListener:function() {
     var that = this;
@@ -23,10 +23,10 @@ var recorder = {
 
 };
 
-recorder.state = 2; //1 = Recording | 2 = Stopped
-recorder.frames = [];
+mouse_recorder.state = 2; //1 = Recording | 2 = Stopped
+mouse_recorder.frames = [];
 
 /*
 * Listen for the mouse movements
 */
-recorder.moveListener();
+mouse_recorder.moveListener();
