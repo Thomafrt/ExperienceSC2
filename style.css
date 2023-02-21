@@ -4,13 +4,12 @@ body{
     text-align: center;
     margin-top: 50px;
 }
-p{
-    color: white;
-}
 input{
     background: none;
     color : white;
     border-color: white;
+    height: 100px;
+    width: 100px;
     
 }
 .firstLine{
@@ -27,4 +26,17 @@ input{
 }
 #vert{
     margin-left: 20%;
+}
+.text{
+    font-size: 50px;
+    font-weight: bold;
+    color: white;
+    margin-top: 15%;
+}
+#start{
+    height: 2cm;
+    width: 5cm;
+    background-color: ghostwhite;
+    color: black;
+    font-weight:bold;
 }
