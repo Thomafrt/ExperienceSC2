@@ -3,14 +3,15 @@ body{
     display: block;
     text-align: center;
     margin-top: 50px;
+    cursor : default;
 }
 input{
     background: none;
-    color : white;
     border-color: white;
-    height: 100px;
-    width: 100px;
-    
+    color : white;
+    height: 4cm;
+    width: 5cm;
+    font-size: 45px;
 }
 .firstLine{
     margin: 0%;
@@ -22,16 +23,16 @@ input{
     margin-left: 10%;
 }
 #rouge{
-    margin-right: 20%;
+    margin-right: 25%;
 }
 #vert{
-    margin-left: 20%;
+    margin-left: 25%;
 }
-.text{
+#text{
     font-size: 50px;
     font-weight: bold;
     color: white;
-    margin-top: 15%;
+    height: 3cm;
 }
 #start{
     height: 2cm;

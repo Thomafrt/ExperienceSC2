@@ -3,8 +3,12 @@
     <head>
         <title>Expérience</title>
         <link rel="stylesheet" href="style.css">
+        <script src="cursor.js"></script>
+        <script src="text.js"></script>
+
     </head>
-    <body>
+
+    <body id="page">
 
         <div class="buttons">
             <div class="firstLine">
@@ -17,12 +21,12 @@
             </div>
         </div>
 
-        <div class="text">
-            <p>COULEUR</p>
+        <div>
+            <p id="text"> </p>
         </div>
 
         <div class="start">
-            <input type="button" value="START" id="start">
+            <input type="button" value="START" id="start" onclick="addText()">
         </div>
 
     </body>
