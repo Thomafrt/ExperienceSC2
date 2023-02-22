@@ -2,9 +2,10 @@ body{
     background-color: black;
     display: block;
     text-align: center;
-    margin-top: 50px;
+    margin : 0.5cm;
     cursor : default;
 }
+
 input{
     background: none;
     border-color: white;
@@ -12,28 +13,28 @@ input{
     height: 4cm;
     width: 5cm;
     font-size: 45px;
-}
-.firstLine{
-    margin: 0%;
+    margin-top: 0.1cm;
 }
 #bleu{
-    margin-right: 10%;
+    margin-right: 4.9cm;
 }
 #jaune{
-    margin-left: 10%;
+    margin-left: 4.9cm;
 }
 #rouge{
-    margin-right: 25%;
+    margin-right: 9cm;
 }
 #vert{
-    margin-left: 25%;
+    margin-left: 9cm;
 }
+
 #text{
     font-size: 50px;
     font-weight: bold;
     color: white;
     height: 3cm;
 }
+
 #start{
     height: 2cm;
     width: 5cm;
