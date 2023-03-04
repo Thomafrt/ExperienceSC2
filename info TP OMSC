@@ -2,32 +2,27 @@ congruence : couleur=mot
 incongruence : couleur =/= mot
 
 
-
-DIMENSIONS ::
+DIMENSIONS :
 
 distance entre start bouton : 31.5cm
 300ms entre press start et l'apparition du stimulu (+ curseur replacé)
 Start : 2cm par 5cm
 
 
+DEROULEMENT TOTAL :
+
+- 16 essais (50% congru) pour le briefing
+- 4 blocs (pause possible entre chaque) : 
+    --> 2 blocks ou la couleur est posée (pas de répétitions directes, d'inversions ou de séquences de trois):
+    20 rep de 8 éléments (exemple: 13243142) donc 160 trials chacuns
+    --> 2 blocks couleur random :
+    160 trials chacuns, sans répétition directe de couleur de stimulus, et autant de chaque
+On alterne séquence et random (résultat normalement plus rapide et précis en séquence)
+
+INFO UTILE ?? : une des paires à 80% et d'autres à 20% de congruence --> paire de participant ou de couleur j'ai pas capté???
 
 
-TEMPO ::
-
-2s de 'X' en cas d'erreur
-500ms entre chaque essais
-
-
-
-ESSAIS ::
-
-16 essais (50% congru) pour commencer
-4 blocs de 8 sequence de 20 élements (ordre random) 
-
-une des paires à 80% et d'autres à 20% de congruence --> paire de participant ou de couleur ???
-
-
-DEROULEMENT :
+DEROULEMENT D'UN ESSAI (trial) :
 - clique sur start
 - le bouton et la souris disparaissent
 - 300ms d'attente et un stimulus apparait au dessus de lemplacement du bouton
@@ -35,13 +30,9 @@ DEROULEMENT :
 - le participant clique le plus vite possible sur la réponse (la couleur du mot) --> FIN TRIAL
 - si erreur affiche X rouge pdt 2sec, puis trial suivant
 
-- attente de 500 ms avant réaffichage bouton start
+- attente de 500 ms avant réaffichage bouton start (prochain trial)
 - si la personne attend plus de 500ms après présentation stimulus 
     --> message encouragement à commencer plus tôt au prochain trial
-
-
-
-
 
 
 VARIABLES ::
