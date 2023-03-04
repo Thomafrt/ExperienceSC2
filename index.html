@@ -8,7 +8,27 @@
 
     </head>
 
-    <body id="page">
+    <body>
+
+        <div id="menu">
+            <header>
+                <h1>Menu</h1>
+            </header>
+            <p>
+            Bienvenue dans notre expérience. <br>
+            EXPLICATIONS<br>
+            ..........
+            
+            </p>
+            <div id="consent">
+                <input type="checkbox" id="check" onclick="document.getElementById('launch').disabled = false;" name="test">
+                <label>J'ai lu les consignes et consens à participer à cette expérience.</label>
+            </div>
+            
+            <button id="launch" onclick="hideMenu()" disabled>Commencer l'expérience</button>
+
+        </div>
+
             <div class="buttons">
                 <div class="firstLine">
                     <input type="button" value="BLEU" id="bleu">
@@ -24,8 +44,8 @@
                 <p id="text"> </p>
             </div>
 
-            <div class="start">
-                <input type="button" value="START" id="start" onclick="showPos()">
+            <div>
+                <input type="button" value="START" id="start" onclick="addText()" disabled>
             </div>
     </body>
 </html>

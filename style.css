@@ -6,6 +6,30 @@ body{
     cursor : default;
 }
 
+/* Menu*/ 
+#menu{
+    position : absolute;
+    color : white;
+    background: rgba(92, 92, 92, 0.95);
+    border: solid white 0.5cm ;
+    font-size: 25px;
+    left : 15%;
+    right : 15%;
+    top : 15%;
+    bottom : 15%;
+    display:grid;
+    padding : 3%;
+}
+#check{
+   height: 20px;
+}
+#launch{
+    font-size: 100%;
+    margin-left: 25%;
+    margin-right: 25%;  
+}
+
+/*Expérience*/
 input{
     background: none;
     border-color: white;

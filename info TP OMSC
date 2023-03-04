@@ -1,3 +1,7 @@
+congruence : couleur=mot
+incongruence : couleur =/= mot
+
+
 
 DIMENSIONS ::
 
@@ -15,13 +19,10 @@ TEMPO ::
 
 
 
-
 ESSAIS ::
 
 16 essais (50% congru) pour commencer puis :
 4 blocs de 8 sequence de 20 élements (ordre random) 
-
-
 
 
 
