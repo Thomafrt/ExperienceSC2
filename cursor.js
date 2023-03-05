@@ -1,23 +1,36 @@
-
-function hideCursor(){
+/**
+ * Cache le curseur de souris
+ */
+function hideCursor(){ //! marche pas
     el = document.getElementsByTagName("body");
     el.style.backgroundColor = 'red';
     //setTimeout(showCursor(),3000)
 }
 
-function showCursor(){
-    document.getElementsByClassName("start").style.cursor='default';
-
+/**
+ * Affiche le curseur de souris
+ */
+function showCursor(){ //! marche pas
+    document.getElementsByClassName("start").style.cursor='default'; 
 }
 
-function elementPositionL (a) { //renvoie la position coin haut gauche d'un objet
+/**
+ * Renvoie la position coin haut gauche d'un objet passé en paramètre
+ * @param {Object} a 
+ * @returns un objet avec les coordonnées x et y de a en attributs
+ */
+function elementPositionL (a) { //
     return {
       clientX: a.offsetLeft,
       clientY: a.offsetTop,
     }
   }
 
-function showPos(a,){ //affiche la distance entre le coin haut gauche du bouton start au coin haut gauche des boutons de gauche
+  /**
+   * Affiche la distance entre le coin haut/gauche du bouton start 
+   * et les coins haut/gauche des boutons de gauche (rouge et bleu)
+   */
+function showPos(){
     let elb = document.getElementById('bleu');
     let elr = document.getElementById('rouge');
     let els = document.getElementById('start');
@@ -26,8 +39,4 @@ function showPos(a,){ //affiche la distance entre le coin haut gauche du bouton 
     let psL = elementPositionL(els)
     console.log((psL.clientX-pb.clientX)+(psL.clientY-pb.clientY))
     console.log((psL.clientX-pr.clientX)+(psL.clientY-pr.clientY))
-}
-
-function startButton(){
-    //inserer toutes les actions
 }
