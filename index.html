@@ -3,9 +3,9 @@
     <head>
         <title>Expérience</title>
         <link rel="stylesheet" href="style.css">
-        <script type="text/javascript" src="cursor.js"></script>
-        <script type="text/javascript" src="text.js"></script>
-
+        <script type="module" src="cursor.js"></script>
+        <script type="module" src="text.js"></script>
+        <script type="module" src="turn.js"></script>
     </head>
 
     <body>
@@ -23,9 +23,9 @@
                 <input type="checkbox" id="check" onclick="document.getElementById('launch').disabled = false;" name="test">
                 <label>J'ai lu les consignes et consens à participer à cette expérience.</label>
             </div>
-            <button id="launch" onclick="hideMenu()" disabled>Commencer l'expérience</button>
+            <button id="launch" disabled>Commencer l'expérience</button>
         </div>
-        
+
 
             <div class="buttons">
                 <div class="firstLine">
@@ -43,7 +43,8 @@
             </div>
 
             <div>
-                <input type="button" value="START" id="start" onclick="addText()" disabled>
+                <input type="button" value="START" id="start" disable>
             </div>
+            
     </body>
 </html>

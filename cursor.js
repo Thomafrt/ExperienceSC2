@@ -1,3 +1,4 @@
+
 function hideCursor(){
     el = document.getElementsByTagName("body");
     el.style.backgroundColor = 'red';
@@ -26,10 +27,6 @@ function showPos(a,){ //affiche la distance entre le coin haut gauche du bouton 
     console.log((psL.clientX-pb.clientX)+(psL.clientY-pb.clientY))
     console.log((psL.clientX-pr.clientX)+(psL.clientY-pr.clientY))
 }
-
-//el.addEventListener('click',hideCursor); //!Erreur
-
-
 
 function startButton(){
     //inserer toutes les actions
