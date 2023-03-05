@@ -7,7 +7,7 @@ export function addText(txt){
     const el=document.getElementById("text").firstChild;
     const val=el.nodeValue;
     if(val!=' '){ // évalue si il y a deja du texte
-        alert('merci de cliquer sur une couleur');
+        alert('Merci de cliquer sur le bouton couleur associé au mot'); //TODO : à modifier car stoppe l'expérience pendant un record
     }
     else{
         document.getElementById("text").innerHTML = txt;

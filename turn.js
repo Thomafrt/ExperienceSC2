@@ -1,20 +1,11 @@
 import {addText, deleteText, hideMenu} from './text.js';
 
 
-//ensemble des couleurs
-const colors =['red', 'blue', 'yellow', 'green'];
+
 //séquence posée : 13243142 avec 1 red, 2 blue, 3 yellow, 4 green
-const sequence = ['red', 'yellow', 'blue', 'green', 'yellow','red', 'green', 'blue']
+const sequence = ['red', 'yellow', 'blue', 'green', 'yellow','red', 'green', 'blue'] //TODO : supprimer quand word.js sera fini et ajouter parametre a turn()
 //parametre pour activer les bouton qu'une fois
 const once = {once: true}; 
-
-
-/**
- * Renvoie un élément aléatoire du tableau colors
- */
-function randomColor() { //génère une couleur aléatoire
-    return colors[Math.floor(Math.random() * colors.length)];
-}
 
 /**
  * Déroule l'expérience
@@ -30,7 +21,7 @@ function turn(){ // deroulé d'un tour
     start.addEventListener('click',() => { //lance un trial de l'expérience
         let color=seqClone.shift();
         trial(color);
-        //TODO: ajouter l'enregistreur de temps et de position de souris ici
+        //TODO: ajouter l'enregistreur de temps et de position de souris ici (entre clic "start" et clic "couleur" et le stocker dans un tableau)
     }); 
 }
 
