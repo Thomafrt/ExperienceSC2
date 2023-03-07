@@ -42,7 +42,6 @@ function randomColor() { //! pas utile pour le moment
  */
 function randomName(color) {
   let names = ['ROUGE', 'BLEU', 'JAUNE', 'VERT']
-
     if(color=='red'){
       names.splice(0,1);
     }
@@ -69,6 +68,24 @@ function shuffle(array) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
+  
+  for (let i = 1; i < array.length-1; i++) {//! risque sur le dernier et erreur 
+    if(array[i].color == array[i-1].color){
+      let j=i+1;
+      
+      //TODO
+      //si dernier=avant dernier --> erreur
+      //si avant dernier=avant avant dernier --> deux derniers egaux
+
+      while(j < array.length && array[i].color == array[j].color){
+        j++;
+      }
+      j=array[j]
+      array[i]=j;
+      array[j]=array[i];
+    }
+  }
+  console.log(array[0].color+'/'+array[157].color+','+array[158].color+','+array[159].color);
   return array;
 }
 
@@ -98,11 +115,10 @@ function generateBlockRandom(congru, nb) {
     block.push(new Word(randomName('green'), 'green'));
   }
   block=shuffle(block) //mélange
-  //TODO : reste à tester si element pas entre deux autres différents, l'avance entre deux différents dans la suite du tableau --> ca suffit ? à tester...
   return block;
 }
 
 
 //MAIN
 
-console.log(generateBlockRandom(0.2 , 160))
+console.log(generateBlockRandom(0.5 , 160))
