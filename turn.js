@@ -3,7 +3,7 @@ import {addText, deleteText, hideMenu} from './text.js';
 
 
 //séquence posée : 13243142 avec 1 red, 2 blue, 3 yellow, 4 green
-const sequence = ['red', 'yellow', 'blue', 'green', 'yellow','red', 'green', 'blue'] //TODO : supprimer quand word.js sera fini et ajouter parametre a turn()
+const sequence = ['red', 'yellow', 'blue', 'green', 'yellow','red', 'green', 'blue'] //TODO : supprimer quand word.js sera fini et ajouter un parametre a turn()
 //parametre pour activer les bouton qu'une fois
 const once = {once: true}; 
 
