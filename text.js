@@ -22,6 +22,14 @@ export function deleteText(){
 }
 
 /**
+ * ajoute le css color au mot
+ * @param {string} col la couleur du mot affiché
+ */
+export function addColor(col){
+    document.getElementById("text").style.color = col;
+}
+
+/**
  *  Cache le menu et active le bouton de l'expérience
  */
 export function hideMenu(){

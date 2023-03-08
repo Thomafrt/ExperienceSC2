@@ -1,4 +1,5 @@
-import {addText, deleteText, hideMenu} from './text.js';
+import {addText, deleteText, addColor, hideMenu} from './text.js';
+import {generateBlockRandom, generateBlockSequence} from './word.js';
 
 
 
@@ -10,16 +11,21 @@ const once = {once: true};
 /**
  * Déroule l'expérience
  */
-function turn(){ // deroulé d'un tour
+function turn(congrence, trials){
     let launch = document.getElementById("launch");
     let start = document.getElementById("start");
-    
-    let seqClone=sequence;
-    //TODO: générer les 4 blocks et les concatener à la suite
+    //les 5 blocks
+    let blockTest = generateBlockRandom(0.5, 16);
+    let block_S1 = generateBlockSequence(congrence,trials/8);
+    let block_R1 = generateBlockRandom(congrence, trials);
+    let block_S2 = generateBlockSequence(congrence, trials/8);
+    let block_R2 = generateBlockRandom(congrence, trials);
+    let blocks = blockTest.concat(block_R1, block_S1, block_R2, block_S2);
+    console.log(blocks);
 
     launch.addEventListener('click',hideMenu); //cache le menu
     start.addEventListener('click',() => { //lance un trial de l'expérience
-        let color=seqClone.shift();
+        let color=blockTest.shift();
         trial(color);
         //TODO: ajouter l'enregistreur de temps et de position de souris ici (entre clic "start" et clic "couleur" et le stocker dans un tableau)
     }); 
@@ -31,27 +37,28 @@ function turn(){ // deroulé d'un tour
  * Détecte si on est arrivé au bout du tableau de mots
  * @param {string} color 
  */
-function trial(color){
+function trial(col){
     let rouge = document.getElementById("rouge");
     let bleu = document.getElementById("bleu");
     let jaune = document.getElementById("jaune");
     let vert = document.getElementById("vert");
-    if(color == undefined){ //si le tableau est fini
+    if(col == undefined){ //si le tableau est fini
         addText('Le tour est terminé');
     }
     else{
-        addText(color); //affiche le premier element du tableau clone (et l'enleve)
+        addText(col.name);
+        addColor(col.color);
         //supprime le texte avec le bouton associé
-        if(color=='red'){
+        if(col.color=='red'){
             rouge.addEventListener('click',deleteText, once);
         }
-        else if(color=='blue'){
+        else if(col.color=='blue'){
             bleu.addEventListener('click',deleteText, once);
         }
-        else if(color=='yellow'){
+        else if(col.color=='yellow'){
             jaune.addEventListener('click',deleteText, once);
         }
-        else if(color=='green'){
+        else if(col.color=='green'){
             vert.addEventListener('click',deleteText, once); 
         }
     }
@@ -60,5 +67,5 @@ function trial(color){
 
 
 //MAIN
- turn();
+ turn(0.5, 160);
 

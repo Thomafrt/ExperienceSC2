@@ -7,7 +7,7 @@ const names = ['ROUGE', 'BLEU', 'JAUNE', 'VERT']
 const sequence = ['red', 'yellow', 'blue', 'green', 'yellow','red', 'green', 'blue']
 
 
-class Word{
+export class Word{
   /**
    * Crée des objets de type Word avec 3 attributs
    * @param {string} name le nom de la couleur en francais et en majuscule
@@ -31,7 +31,7 @@ class Word{
 /**
  * @return un élément aléatoire du tableau colors (génère une couleur aléatoire)
  */
-function randomColor() { //! pas utile pour le moment
+export function randomColor() { //! pas utile pour le moment
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
@@ -40,7 +40,7 @@ function randomColor() { //! pas utile pour le moment
  * @param {string} color la couleur à ne pas générer
  * @return une couleur aléatoire différente de color, en francais en majuscule
  */
-function randomName(color) {
+export function randomName(color) {
   let names = ['ROUGE', 'BLEU', 'JAUNE', 'VERT']
     if(color=='red'){
       names.splice(0,1);
@@ -57,44 +57,57 @@ function randomName(color) {
   return names[Math.floor(Math.random() * names.length)] ;
 }
 
+/**
+ * Renvoie le nom de couleur congruent, en francais majuscule
+ * @param {string} color 
+ * @returns la couleur
+ */
+export function sameName(color) {
+    if(color=='red'){
+      return names[0];
+    }
+    else if(color=='blue'){
+      return names[1];
+    }
+    else if(color=='yellow'){
+      return names[2];
+    }
+    else if(color=='green'){
+      return names[3];
+    }
+}
+
 
 /**
  * Mélange aléatoirement un tableau avec l'algorithme de Fisher-Yates
  * @param {array} array
  * @returns le tableau mélangé
  */
-function shuffle(array) {
+export function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
-  
   for (let i = 1; i < array.length-2; i++) {
     if(array[i].color == array[i-1].color){
       let j=i+1;
-      //console.log(j)
-        while(j < array.length && array[i].color == array[j].color){ //sarrete sur une color différente
+        while(j < array.length && array[i].color == array[j].color){
           j+=1;
         }
         if(j > array.length-1){
-          console.log('La valeur de j dépasse la taille du tableau');
+          //console.log('La valeur de j dépasse la taille du tableau, on relance shuffle() à la fin');
         }
         else{
           j=array[j]
           array[i]=j;
           array[j]=array[i];
         }
-
       }
     }
-  //console.log(array)
-  //console.log(array[0].color+'/'+array[156].color+','+array[157].color+','+array[158].color+','+array[159].color);
-
   //si 2 elements se suivent dans les 3 dernier, on relance
   if(array[array.length-1].color==array[array.length-2].color || array[array.length-2].color==array[array.length-3].color){
     shuffle(array);
   }
-
   return array;
 }
 
@@ -106,15 +119,15 @@ function shuffle(array) {
  * @param {number} nb le nombre de trial par block (normalement 160)-> multiple de 4 OBLIGATOIRE
  * @return block, un tableau de nb Words randomisés
  */
-function generateBlockRandom(congru, nb) {
+export function generateBlockRandom(congru, nb) {
   let block = [];
   nb=nb/4
   //avec congruence
   for(let i =0; i < (nb*congru); i++){
-    block.push(new Word('ROUGE', 'red'));
-    block.push(new Word('BLEU', 'blue'));
-    block.push(new Word('JAUNE', 'yellow'));
-    block.push(new Word('VERT', 'green'));
+    block.push(new Word(names[1], 'red'));
+    block.push(new Word(names[2], 'blue'));
+    block.push(new Word(names[3], 'yellow'));
+    block.push(new Word(names[4], 'green'));
   }
   //sans congruence
   for(let i = 0; i < (nb*(1-congru)); i++) {
@@ -124,20 +137,48 @@ function generateBlockRandom(congru, nb) {
     block.push(new Word(randomName('green'), 'green'));
   }
   block=shuffle(block) //mélange
-
-  /* // TEST si le tableau n'a pas de répétition
-  for (let i = 1; i < block.length-1; i++) {
-    if(block[i].color != block[i+1].color){
-      console.log('cest carré');
-    }
-    else{console.log('probleme element '+i)}
-  }
-  */
-
   return block;
 }
 
 
+/**
+ * génère un block suivant une séquence posée
+ * @param {number} congru la congruence voulue
+ * @param {number} nb nombre de répétition du cycle de 8 trials
+ * @return block, un tableau de nb Words suivant la séquence
+ */
+export function generateBlockSequence(congru, nb) {
+  let block = [];
+  for(let i = 0; i < nb; i++){ //repetitions
+    let cpt = 0;
+    for(let j = 0; j < sequence.length; j++){ //essais
+      let rdm = Math.floor(Math.random() * 100);
+      if(rdm < congru*100){ //congruent
+        let col=sequence[cpt];
+        block.push(new Word(sameName(col), col));
+      }
+      else{ //incongruent
+        let col=sequence[cpt];
+        block.push(new Word(randomName(col), col));
+      }
+      cpt+=1;
+    }
+  }
+  // TODO : compter nb de chaque
+
+  let tauxCong=0
+  for(let i = 0; i < block.length; i++){
+    if(block[i].congruent==true){
+      tauxCong+=1;
+    }
+  }
+  //console.log(tauxCong);
+  return block;
+}
+
+
+
 //MAIN
 
-console.log(generateBlockRandom(0.5 , 160))
+//console.log(generateBlockRandom(0.5 , 160))
+//console.log(generateBlockSequence(0.5 , 20))

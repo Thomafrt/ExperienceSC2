@@ -19,8 +19,6 @@ DEROULEMENT TOTAL :
     160 trials chacuns, sans répétition directe de couleur de stimulus, et autant de chaque
 On alterne séquence et random (résultat normalement plus rapide et précis en séquence)
 
-INFO UTILE ?? : une des paires à 80% et d'autres à 20% de congruence --> paire de participant ou de couleur j'ai pas capté???
-
 
 DEROULEMENT D'UN ESSAI (trial) :
 - clique sur start
@@ -42,3 +40,7 @@ MT : temps total jusqu'à click bouton
 AUC : intégral entre la trajectoire de la sourri et la trajectoire optimal
 
 
+Question :
+
+- un groupe de participant à 20% et un autre à 80?
+- block sequence : generer la congruence avec math.random ? ou meme nombre de congruent posé ?
