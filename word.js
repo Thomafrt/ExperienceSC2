@@ -69,23 +69,32 @@ function shuffle(array) {
     [array[i], array[j]] = [array[j], array[i]];
   }
   
-  for (let i = 1; i < array.length-1; i++) {//! risque sur le dernier et erreur 
+  for (let i = 1; i < array.length-2; i++) {
     if(array[i].color == array[i-1].color){
       let j=i+1;
-      
-      //TODO
-      //si dernier=avant dernier --> erreur
-      //si avant dernier=avant avant dernier --> deux derniers egaux
+      //console.log(j)
+        while(j < array.length && array[i].color == array[j].color){ //sarrete sur une color différente
+          j+=1;
+        }
+        if(j > array.length-1){
+          console.log('La valeur de j dépasse la taille du tableau');
+        }
+        else{
+          j=array[j]
+          array[i]=j;
+          array[j]=array[i];
+        }
 
-      while(j < array.length && array[i].color == array[j].color){
-        j++;
       }
-      j=array[j]
-      array[i]=j;
-      array[j]=array[i];
     }
+  //console.log(array)
+  //console.log(array[0].color+'/'+array[156].color+','+array[157].color+','+array[158].color+','+array[159].color);
+
+  //si 2 elements se suivent dans les 3 dernier, on relance
+  if(array[array.length-1].color==array[array.length-2].color || array[array.length-2].color==array[array.length-3].color){
+    shuffle(array);
   }
-  console.log(array[0].color+'/'+array[157].color+','+array[158].color+','+array[159].color);
+
   return array;
 }
 
@@ -115,6 +124,16 @@ function generateBlockRandom(congru, nb) {
     block.push(new Word(randomName('green'), 'green'));
   }
   block=shuffle(block) //mélange
+
+  /* // TEST si le tableau n'a pas de répétition
+  for (let i = 1; i < block.length-1; i++) {
+    if(block[i].color != block[i+1].color){
+      console.log('cest carré');
+    }
+    else{console.log('probleme element '+i)}
+  }
+  */
+
   return block;
 }
 
