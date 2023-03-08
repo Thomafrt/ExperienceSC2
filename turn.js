@@ -1,10 +1,7 @@
-import {addText, deleteText, addColor, hideMenu} from './text.js';
+import {addText, deleteText, addColor, addError, hideMenu} from './text.js';
 import {generateBlockRandom, generateBlockSequence} from './word.js';
 
 
-
-//séquence posée : 13243142 avec 1 red, 2 blue, 3 yellow, 4 green
-const sequence = ['red', 'yellow', 'blue', 'green', 'yellow','red', 'green', 'blue'] //TODO : supprimer quand word.js sera fini et ajouter un parametre a turn()
 //parametre pour activer les bouton qu'une fois
 const once = {once: true}; 
 
@@ -26,9 +23,20 @@ function turn(congrence, trials){
     launch.addEventListener('click',hideMenu); //cache le menu
     start.addEventListener('click',() => { //lance un trial de l'expérience
         let color=blockTest.shift();
+
+        rouge.addEventListener('click', () => {addError();}, once);
+        bleu.addEventListener('click', () => {addError();}, once);
+        jaune.addEventListener('click', () => {addError();}, once);
+        vert.addEventListener('click', () => {addError();}, once);
+
         trial(color);
         //TODO: ajouter l'enregistreur de temps et de position de souris ici (entre clic "start" et clic "couleur" et le stocker dans un tableau)
     }); 
+
+
+
+    
+
 }
 
 /**
@@ -42,6 +50,7 @@ function trial(col){
     let bleu = document.getElementById("bleu");
     let jaune = document.getElementById("jaune");
     let vert = document.getElementById("vert");
+
     if(col == undefined){ //si le tableau est fini
         addText('Le tour est terminé');
     }

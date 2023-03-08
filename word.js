@@ -2,7 +2,6 @@
 const colors =['red', 'blue', 'yellow', 'green'];
 //ensemble des noms
 const names = ['ROUGE', 'BLEU', 'JAUNE', 'VERT']
-
 //séquence posée : 13243142 avec 1 red, 2 blue, 3 yellow, 4 green
 const sequence = ['red', 'yellow', 'blue', 'green', 'yellow','red', 'green', 'blue']
 
@@ -124,10 +123,10 @@ export function generateBlockRandom(congru, nb) {
   nb=nb/4
   //avec congruence
   for(let i =0; i < (nb*congru); i++){
-    block.push(new Word(names[1], 'red'));
-    block.push(new Word(names[2], 'blue'));
-    block.push(new Word(names[3], 'yellow'));
-    block.push(new Word(names[4], 'green'));
+    block.push(new Word(names[0], 'red'));
+    block.push(new Word(names[1], 'blue'));
+    block.push(new Word(names[2], 'yellow'));
+    block.push(new Word(names[3], 'green'));
   }
   //sans congruence
   for(let i = 0; i < (nb*(1-congru)); i++) {

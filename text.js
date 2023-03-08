@@ -7,7 +7,7 @@ export function addText(txt){
     const el=document.getElementById("text").firstChild;
     const val=el.nodeValue;
     if(val!=' '){ // évalue si il y a deja du texte
-        alert('Merci de cliquer sur le bouton couleur associé au mot'); //TODO : à modifier car stoppe l'expérience pendant un record
+        alert('Merci de ne pas cliquer 2 fois de suite sur START'); //TODO : à modifier car stoppe l'expérience pendant un record
     }
     else{
         document.getElementById("text").innerHTML = txt;
@@ -19,6 +19,17 @@ export function addText(txt){
  */
 export function deleteText(){
     document.getElementById("text").innerHTML =' ';
+}
+
+/**
+ * Ajoute un message d'erreur
+ */
+export function addError(){
+    deleteText();
+    addText('X');
+    document.getElementById("text").style.color='red';
+    setTimeout(deleteText, 2000);
+
 }
 
 /**
