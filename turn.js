@@ -1,5 +1,6 @@
 import {addText, deleteText, addColor, addError, hideMenu} from './text.js';
 import {generateBlockRandom, generateBlockSequence} from './word.js';
+import { recordMouse, stopMouse, getFrames } from './mouse_recorder.js';
 
 
 //parametre pour activer les bouton qu'une fois
@@ -77,4 +78,3 @@ function trial(col){
 
 //MAIN
  turn(0.5, 160);
-

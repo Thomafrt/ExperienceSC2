@@ -30,3 +30,19 @@ mouse_recorder.frames = [];
 * Listen for the mouse movements
 */
 mouse_recorder.moveListener();
+
+////////////////////////////////
+
+export function recordMouse() {
+  mouse_recorder.frames = [];//reinitialize
+  mouse_recorder.record();
+}
+
+export function stopMouse() {
+  mouse_recorder.state = 2;
+  $('button.r').text('stop & play');
+}
+
+export function getFrames() {
+  return mouse_recorder.frames;
+}
