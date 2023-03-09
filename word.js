@@ -2,6 +2,7 @@
 const colors =['red', 'blue', 'yellow', 'green'];
 //ensemble des noms
 const names = ['ROUGE', 'BLEU', 'JAUNE', 'VERT']
+ 
 //séquence posée : 13243142 avec 1 red, 2 blue, 3 yellow, 4 green
 const sequence = ['red', 'yellow', 'blue', 'green', 'yellow','red', 'green', 'blue']
 
@@ -34,26 +35,17 @@ export function randomColor() { //! pas utile pour le moment
   return colors[Math.floor(Math.random() * colors.length)];
 }
 
+
 /**
- * Génère un nom de couleur aléatoire
- * @param {string} color la couleur à ne pas générer
- * @return une couleur aléatoire différente de color, en francais en majuscule
+ * Renvoie la couleur incongruente de chaque paires rouge/vert et bleu/jaune
+ * @param {string} color la couleur du mot
+ * @return la chaine incongruente à la couleur du mot (majuscule/francais)
  */
 export function randomName(color) {
-  let names = ['ROUGE', 'BLEU', 'JAUNE', 'VERT']
-    if(color=='red'){
-      names.splice(0,1);
-    }
-    else if(color=='blue'){
-      names.splice(1,1);
-    }
-    else if(color=='yellow'){
-      names.splice(2,1);
-    }
-    else if(color=='green'){
-      names.splice(3,1);
-    }
-  return names[Math.floor(Math.random() * names.length)] ;
+    if(color=='red'){ return 'VERT';}
+    else if(color=='blue'){return 'JAUNE';}
+    else if(color=='yellow'){return 'BLEU';}
+    else if(color=='green'){return 'ROUGE';}
 }
 
 /**
@@ -97,9 +89,9 @@ export function shuffle(array) {
           //console.log('La valeur de j dépasse la taille du tableau, on relance shuffle() à la fin');
         }
         else{
-          j=array[j]
-          array[i]=j;
+          let cloneJ=array[j]
           array[j]=array[i];
+          array[i]=cloneJ;
         }
       }
     }
@@ -115,12 +107,12 @@ export function shuffle(array) {
  * Génère un bloc d'éléments aléatoires
  * (sans 2 même couleurs de suite et un nombre de chaque couleurs equivalent)
  * @param {number} congru le pourcentage de congrence dans le block (format : 0.0)
- * @param {number} nb le nombre de trial par block (normalement 160)-> multiple de 4 OBLIGATOIRE
+ * @param {number} nb le nombre de trial par block (normalement 160)-> multiple de 4 OBLIGATOIRE (voir meme de 8)
  * @return block, un tableau de nb Words randomisés
  */
 export function generateBlockRandom(congru, nb) {
   let block = [];
-  nb=nb/4
+  nb=nb/4;
   //avec congruence
   for(let i =0; i < (nb*congru); i++){
     block.push(new Word(names[0], 'red'));
@@ -143,41 +135,55 @@ export function generateBlockRandom(congru, nb) {
 /**
  * génère un block suivant une séquence posée
  * @param {number} congru la congruence voulue
- * @param {number} nb nombre de répétition du cycle de 8 trials
+ * @param {number} nb nombre de trials total --> OBLIGATOIREMENT divisible par 8
  * @return block, un tableau de nb Words suivant la séquence
  */
 export function generateBlockSequence(congru, nb) {
   let block = [];
-  for(let i = 0; i < nb; i++){ //repetitions
-    let cpt = 0;
-    for(let j = 0; j < sequence.length; j++){ //essais
-      let rdm = Math.floor(Math.random() * 100);
-      if(rdm < congru*100){ //congruent
-        let col=sequence[cpt];
-        block.push(new Word(sameName(col), col));
-      }
-      else{ //incongruent
-        let col=sequence[cpt];
-        block.push(new Word(randomName(col), col));
-      }
-      cpt+=1;
+  nb=nb/8;
+  for(let i = 0; i < nb*congru; i++){ //congruent
+    for(let j = 0; j < sequence.length; j++){
+      block.push(new Word(sameName(sequence[j]), sequence[j]));
     }
   }
-  // TODO : compter nb de chaque
-
-  let tauxCong=0
-  for(let i = 0; i < block.length; i++){
-    if(block[i].congruent==true){
-      tauxCong+=1;
+  for(let i = 0; i < nb*congru; i++){ //incongruent
+    for(let j = 0; j < sequence.length; j++){
+      block.push(new Word(randomName(sequence[j]), sequence[j]));
     }
   }
-  //console.log(tauxCong);
   return block;
 }
 
 
 
 //MAIN
-
 //console.log(generateBlockRandom(0.5 , 160))
 //console.log(generateBlockSequence(0.5 , 20))
+
+
+
+//SOUVENIR
+
+/**
+ * Génère un nom de couleur aléatoire
+ * @param {string} color la couleur à ne pas générer
+ * @return une couleur aléatoire différente de color, en francais en majuscule
+ */
+/*
+export function randomName(color) { //! utile si on ne devait pas mettre les couleurs par paires, mais toutes entre elles
+  let names = ['ROUGE', 'BLEU', 'JAUNE', 'VERT'];
+    if(color=='red'){
+      names.splice(0,1);
+    }
+    else if(color=='blue'){
+      names.splice(1,1);
+    }
+    else if(color=='yellow'){
+      names.splice(2,1);
+    }
+    else if(color=='green'){
+      names.splice(3,1);
+    }
+  return names[Math.floor(Math.random() * names.length)] ;
+}
+*/

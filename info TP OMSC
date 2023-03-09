@@ -33,6 +33,13 @@ DEROULEMENT D'UN ESSAI (trial) :
     --> message encouragement à commencer plus tôt au prochain trial
 
 
+à enregistrer sur chaque tours :
+- le temps entre les 2 clicks
+- la trajectoire
+- congruent ou non
+Exporter le tout dans un tableau via Json à la fin
+
+
 VARIABLES ::
 
 IT : temps avant que la sourri ne bouge
@@ -40,7 +47,8 @@ MT : temps total jusqu'à click bouton
 AUC : intégral entre la trajectoire de la sourri et la trajectoire optimal
 
 
-Question :
-
-- un groupe de participant à 20% et un autre à 80?
-- block sequence : generer la congruence avec math.random ? ou meme nombre de congruent posé ?
+TODO :
+- tester le mouse recorder
+- enregistrer le temps de réaction et le temps jusqu'au clic de réponse
+- enregistrer et exporter les données
+- gerer les temps d'attentes, disparition de start, les pauses entre les blocks, et message d'encouragement

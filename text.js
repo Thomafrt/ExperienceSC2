@@ -1,3 +1,10 @@
+const once = {once: true}; 
+
+const rouge = document.getElementById("rouge");
+const bleu = document.getElementById("bleu");
+const jaune = document.getElementById("jaune");
+const vert = document.getElementById("vert");
+
 /**
  * Vérifie si du texte est déjà placé,
  * si ce n'est pas le cas, ajoute le texte placé en paramètre
@@ -29,7 +36,6 @@ export function addError(){
     addText('X');
     document.getElementById("text").style.color='red';
     setTimeout(deleteText, 2000);
-
 }
 
 /**
@@ -50,5 +56,39 @@ export function hideMenu(){
     }
     else{//si checkbox décochée
        alert("Vous devez d'abord confirmer votre consentement pour lancer l'expérience.")
+    }
+}
+
+/**
+ * Ajoute les events correspondants aux boutons 'couleur', 
+ * qui disparaissent lorsque l'un d'eux est cliqué
+ * @param {string} color la couleur du mot affiché (pour bouton de la bonne réponse)
+ */
+export function addEventExpe(color){ //TODO : mettre les boutons dans un tableau avec une boucle pour simplifier le code
+    let controller = new AbortController();
+    let signal = {signal :controller.signal};
+    if(color=="red"){
+        rouge.addEventListener('click', () => {deleteText(); controller.abort();}, signal);
+        bleu.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        jaune.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        vert.addEventListener('click', () => {addError(); controller.abort();}, signal);
+    }
+    else if (color=="blue"){
+        rouge.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        bleu.addEventListener('click', () => {deleteText(); controller.abort();}, signal);
+        jaune.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        vert.addEventListener('click', () => {addError(); controller.abort();}, signal);
+    }
+    else if (color=="yellow"){
+        rouge.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        bleu.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        jaune.addEventListener('click', () => {deleteText(); controller.abort();}, signal);
+        vert.addEventListener('click', () => {addError(); controller.abort();}, signal);
+    }
+    else if (color=="green"){
+        rouge.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        bleu.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        jaune.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        vert.addEventListener('click', () => {deleteText(); controller.abort();}, signal);
     }
 }
