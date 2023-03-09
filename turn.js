@@ -1,6 +1,6 @@
 import {addText, deleteText, addColor, addError, hideMenu} from './text.js';
 import {generateBlockRandom, generateBlockSequence} from './word.js';
-import { recordMouse, stopMouse, getFrames } from './mouse_recorder.js';
+import { recordMouse, stopMouseAndGetFrames} from './mouse_recorder.js';
 
 
 //parametre pour activer les bouton qu'une fois
@@ -30,8 +30,8 @@ function turn(congrence, trials){
         jaune.addEventListener('click', () => {addError();}, once);
         vert.addEventListener('click', () => {addError();}, once);
 
+        recordMouse();
         trial(color);
-        //TODO: ajouter l'enregistreur de temps et de position de souris ici (entre clic "start" et clic "couleur" et le stocker dans un tableau)
     }); 
 
 
@@ -61,15 +61,19 @@ function trial(col){
         //supprime le texte avec le bouton associé
         if(col.color=='red'){
             rouge.addEventListener('click',deleteText, once);
+            rouge.addEventListener('click',stopMouseAndGetFrames, once);
         }
         else if(col.color=='blue'){
             bleu.addEventListener('click',deleteText, once);
+            bleu.addEventListener('click',stopMouseAndGetFrames, once);
         }
         else if(col.color=='yellow'){
             jaune.addEventListener('click',deleteText, once);
+            jaune.addEventListener('click',stopMouseAndGetFrames, once);
         }
         else if(col.color=='green'){
             vert.addEventListener('click',deleteText, once); 
+            vert.addEventListener('click',stopMouseAndGetFrames, once);
         }
     }
 }
