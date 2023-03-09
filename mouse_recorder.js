@@ -3,18 +3,28 @@ var mouse_recorder = {
   moveListener:function() {
     var that = this;
 
-    $(window).mousemove(function(e) {
+
+
+    document.onmousemove = (function(e) {
       if(that.state == 1) {
         that.frames.push([e.clientX, e.clientY]);
       }
     });
+
   },
+
 
   record:function() {
     var that = this;
-    that.frames = [];
+    that.frames = [];//reinitialize
     that.state = 1;
     that.startTime = new Date().getTime()/1000;
+  },
+
+  stop:function() {
+    var that = this;
+    that.state = 2;
+    that.endTime = new Date().getTime()/1000;
   },
 
 };
@@ -30,14 +40,10 @@ mouse_recorder.moveListener();
 ////////////////////////////////
 
 export function recordMouse() {
-  mouse_recorder.frames = [];//reinitialize
-  mouse_recorder.moveListener();
+  mouse_recorder.record();
 }
 
-export function stopMouse() {
-  mouse_recorder.state = 2;
-}
-
-export function getFrames() {
+export function stopMouseAndGetFrames() {
+  mouse_recorder.stop();
   return mouse_recorder.frames;
 }
