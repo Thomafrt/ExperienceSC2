@@ -1,4 +1,4 @@
-import {addText, addColor, hideMenu, addEventExpe} from './text.js';
+import {addText, addColor, hideMenu, addEventExpe, hideStart} from './text.js';
 import {generateBlockRandom, generateBlockSequence} from './word.js';
 import { recordMouse, stopMouseAndGetFrames} from './mouse_recorder.js';
 
@@ -22,6 +22,8 @@ function turn(congrence, trials){
 
     launch.addEventListener('click',hideMenu); //cache le menu
     start.addEventListener('click',() => { //lance un trial de l'expérience
+
+        hideStart();
         let color=blocks.shift();
         trial(color);
 
@@ -32,9 +34,9 @@ function turn(congrence, trials){
 }
 
 /**
- * Déroulé d'un essai : 
- * Affiche un mot et associe le bon bouton pour supprimer le mot ou afficher une erreur.
- * Détecte si on est arrivé au bout du tableau de mots
+ * Déroulé d'un essai :
+ * Détecte si on est arrivé au bout du tableau de mots, sinon
+ * après 300 ms d'attente, affiche un mot et associe le bon bouton pour le supprimer ou affiche une erreur.
  * @param {string} color la couleur de la bonne réponse
  */
 function trial(col){
@@ -42,9 +44,11 @@ function trial(col){
         addText("L'expérience est terminé");
     }
     else{
-        addText(col.name);
-        addColor(col.color);
-        addEventExpe(col.color);
+        setTimeout(() => {
+            addText(col.name);
+            addColor(col.color);
+            addEventExpe(col.color);
+        }, 300);
     }
 }
 

@@ -5,6 +5,9 @@ const bleu = document.getElementById("bleu");
 const jaune = document.getElementById("jaune");
 const vert = document.getElementById("vert");
 
+
+//GESTION DU TEXTE
+
 /**
  * Vérifie si du texte est déjà placé,
  * si ce n'est pas le cas, ajoute le texte placé en paramètre
@@ -14,7 +17,7 @@ export function addText(txt){
     const el=document.getElementById("text").firstChild;
     const val=el.nodeValue;
     if(val!=' '){ // évalue si il y a deja du texte
-        alert('Merci de ne pas cliquer 2 fois de suite sur START'); //TODO : à modifier car stoppe l'expérience pendant un record
+        //alert("Merci d'attendre la fin de l'affichage avant de cliquer START"); //TODO : à modifier car stoppe l'expérience pendant un record
     }
     else{
         document.getElementById("text").innerHTML = txt;
@@ -46,6 +49,10 @@ export function addColor(col){
     document.getElementById("text").style.color = col;
 }
 
+
+
+//ANIMATIONS
+
 /**
  *  Cache le menu et active le bouton de l'expérience
  */
@@ -66,29 +73,46 @@ export function hideMenu(){
  */
 export function addEventExpe(color){ //TODO : mettre les boutons dans un tableau avec une boucle pour simplifier le code
     let controller = new AbortController();
-    let signal = {signal :controller.signal};
+    let signal = {signal : controller.signal};
     if(color=="red"){
-        rouge.addEventListener('click', () => {deleteText(); controller.abort();}, signal);
-        bleu.addEventListener('click', () => {addError(); controller.abort();}, signal);
-        jaune.addEventListener('click', () => {addError(); controller.abort();}, signal);
-        vert.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        rouge.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500);}, signal);
+        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
     }
     else if (color=="blue"){
-        rouge.addEventListener('click', () => {addError(); controller.abort();}, signal);
-        bleu.addEventListener('click', () => {deleteText(); controller.abort();}, signal);
-        jaune.addEventListener('click', () => {addError(); controller.abort();}, signal);
-        vert.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        bleu.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500);}, signal);
+        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
     }
     else if (color=="yellow"){
-        rouge.addEventListener('click', () => {addError(); controller.abort();}, signal);
-        bleu.addEventListener('click', () => {addError(); controller.abort();}, signal);
-        jaune.addEventListener('click', () => {deleteText(); controller.abort();}, signal);
-        vert.addEventListener('click', () => {addError(); controller.abort();}, signal);
+        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        jaune.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500);}, signal);
+        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
     }
     else if (color=="green"){
-        rouge.addEventListener('click', () => {addError(); controller.abort();}, signal);
-        bleu.addEventListener('click', () => {addError(); controller.abort();}, signal);
-        jaune.addEventListener('click', () => {addError(); controller.abort();}, signal);
-        vert.addEventListener('click', () => {deleteText(); controller.abort();}, signal);
+        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        vert.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500);}, signal);
     }
+}
+
+
+/**
+ * Cache le bouton start
+ * Fonction appelée dans
+ */
+export function hideStart(){
+    document.getElementById("start").style.visibility='hidden';
+}
+
+/**
+ * Affiche le bouton start après un temps d'attente
+ * @param {number} tps le temps d'attente en ms (2000 si erreur, 500 sinon)
+ */
+export function showStart(tps){
+    setTimeout(() => {document.getElementById("start").style.visibility="visible";}, tps);
 }
