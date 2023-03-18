@@ -1,4 +1,4 @@
-import {addText, addColor, hideMenu, addEventExpe, hideStart} from './text.js';
+import {addText, addColor, hideMenu, addEventExpe, hideStart, showPauseMenu} from './text.js';
 import {generateBlockRandom, generateBlockSequence} from './word.js';
 import { recordMouse, stopMouseAndGetFrames} from './mouse_recorder.js';
 
@@ -49,6 +49,10 @@ function trial(col){
             addColor(col.color);
             addEventExpe(col.color);
         }, 300);
+    }
+    showPauseMenu();
+    if(blocks.length==159 ||blocks.length==160 ||blocks.length==160 ||blocks.length==160){
+
     }
 }
 

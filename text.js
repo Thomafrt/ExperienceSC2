@@ -51,20 +51,71 @@ export function addColor(col){
 
 
 
-//ANIMATIONS
+//GESTION ELEMENTS
 
 /**
- *  Cache le menu et active le bouton de l'expérience
+ * Cache le menu et active le bouton de l'expérience
  */
 export function hideMenu(){
     if(document.getElementById("check").checked){//si checkbox cochée
-        document.getElementById("menu").style.display="none";
+        document.getElementById("menu").style.visibility='hidden';
         document.getElementById('start').disabled = false;
     }
     else{//si checkbox décochée
        alert("Vous devez d'abord confirmer votre consentement pour lancer l'expérience.")
     }
 }
+
+/**
+ * 
+ */
+export function showPauseMenu(){
+    document.getElementById("menu").style.visibility='visible';
+    let menu = document.getElementById('menu');
+
+    let oldTitre = document.getElementById('titreMenu');
+    let parentTitre = oldTitre.parentNode;
+    
+    //Supprime et remplace les elements dynamiquement
+    menu.removeChild(document.getElementById('consent'));
+
+    let titre = document.createElement("h1");
+    let titreValue = document.createTextNode("PAUSE");
+    titre.appendChild(titreValue);
+    parentTitre.replaceChild(titre, document.getElementById("titreMenu"));
+
+    let text = document.createElement("p");
+    let textValue = document.createTextNode("Vous pouvez souffler avant de reprendre l'expérience. Quand vous êtes prêts cliquez sur le bouton si dessous pour continuer.");
+    text.appendChild(textValue);
+    menu.replaceChild(text, document.getElementById("textMenu"));
+
+    let next = document.createElement("input");  //changer style
+    next.type = 'button';
+    next.value = "Continuer l'expérience"
+    next.onclick = function(){document.getElementById('menu').style.visibility='hidden'};
+    menu.replaceChild(next, document.getElementById('launch'));
+}
+
+/**
+ * Cache le bouton start
+ * Fonction appelée dans
+ */
+export function hideStart(){
+    document.getElementById("start").style.visibility='hidden';
+}
+
+/**
+ * Affiche le bouton start après un temps d'attente
+ * @param {number} tps le temps d'attente en ms (2000 si erreur, 500 sinon)
+ */
+export function showStart(tps){
+    setTimeout(() => {document.getElementById("start").style.visibility="visible";}, tps);
+}
+
+
+
+//GESTION EVENTS
+
 
 /**
  * Ajoute les events correspondants aux boutons 'couleur', 
@@ -98,21 +149,4 @@ export function addEventExpe(color){ //TODO : mettre les boutons dans un tableau
         jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
         vert.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500);}, signal);
     }
-}
-
-
-/**
- * Cache le bouton start
- * Fonction appelée dans
- */
-export function hideStart(){
-    document.getElementById("start").style.visibility='hidden';
-}
-
-/**
- * Affiche le bouton start après un temps d'attente
- * @param {number} tps le temps d'attente en ms (2000 si erreur, 500 sinon)
- */
-export function showStart(tps){
-    setTimeout(() => {document.getElementById("start").style.visibility="visible";}, tps);
 }
