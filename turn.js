@@ -25,7 +25,7 @@ function turn(congrence, trials){
 
         hideStart();
         let color=blocks.shift();
-        trial(color);
+        trial(color,blocks.length);
 
         //enregistrement des data
         recordMouse();
@@ -38,8 +38,9 @@ function turn(congrence, trials){
  * Détecte si on est arrivé au bout du tableau de mots, sinon
  * après 300 ms d'attente, affiche un mot et associe le bon bouton pour le supprimer ou affiche une erreur.
  * @param {string} color la couleur de la bonne réponse
+ * @param {number} nbBlocks le nb d'essais restants
  */
-function trial(col){
+function trial(col,nbBlocks){
     if(col == undefined){ //si le tableau est fini
         addText("L'expérience est terminé");
     }
@@ -50,10 +51,14 @@ function trial(col){
             addEventExpe(col.color);
         }, 300);
     }
-    showPauseMenu();
-    if(blocks.length==159 ||blocks.length==160 ||blocks.length==160 ||blocks.length==160){
-
+   /* MENU PAUSE
+   console.log(nbBlocks)
+    if(nbBlocks==654 ){ //639
+        showPauseMenu();
     }
+    else if(nbBlocks==652 || nbBlocks==650 || nbBlocks==648){ //479-319-159 !!! manque 1
+    
+    }*/
 }
 
 
