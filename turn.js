@@ -48,17 +48,22 @@ function trial(col,nbBlocks){
         setTimeout(() => {
             addText(col.name);
             addColor(col.color);
-            addEventExpe(col.color);
+
+            if(nbBlocks==654 ){ //639
+                addEventExpe(col.color, 0);
+            }
+            else if(nbBlocks==652 || nbBlocks==650 || nbBlocks==648){ //479-319-159 !!! manque 1
+                addEventExpe(col.color, 1);
+            }
+            else{
+                addEventExpe(col.color);
+            }
+            
+            
         }, 300);
     }
-   /* MENU PAUSE
-   console.log(nbBlocks)
-    if(nbBlocks==654 ){ //639
-        showPauseMenu();
-    }
-    else if(nbBlocks==652 || nbBlocks==650 || nbBlocks==648){ //479-319-159 !!! manque 1
-    
-    }*/
+
+
 }
 
 

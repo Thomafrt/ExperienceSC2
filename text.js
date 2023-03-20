@@ -67,33 +67,42 @@ export function hideMenu(){
 }
 
 /**
- * 
+ * @param {number} mode
  */
-export function showPauseMenu(){
-    document.getElementById("menu").style.visibility='visible';
+export function showPauseMenu(mode){
     let menu = document.getElementById('menu');
-
-    let oldTitre = document.getElementById('titreMenu');
-    let parentTitre = oldTitre.parentNode;
-    
-    //Supprime et remplace les elements dynamiquement
-    menu.removeChild(document.getElementById('consent'));
-
-    let titre = document.createElement("h1");
-    let titreValue = document.createTextNode("PAUSE");
-    titre.appendChild(titreValue);
-    parentTitre.replaceChild(titre, document.getElementById("titreMenu"));
-
-    let text = document.createElement("p");
-    let textValue = document.createTextNode("Vous pouvez souffler avant de reprendre l'expérience. Quand vous êtes prêts cliquez sur le bouton si dessous pour continuer.");
-    text.appendChild(textValue);
-    menu.replaceChild(text, document.getElementById("textMenu"));
-
-    let next = document.createElement("input");  //changer style
-    next.type = 'button';
-    next.value = "Continuer l'expérience"
-    next.onclick = function(){document.getElementById('menu').style.visibility='hidden'};
-    menu.replaceChild(next, document.getElementById('launch'));
+    if(mode == 0){// première pause
+        document.getElementById("menu").style.visibility='visible';
+        let oldTitre = document.getElementById('titreMenu');
+        let parentTitre = oldTitre.parentNode;
+        //Supprime consent
+        menu.removeChild(document.getElementById('consent'));
+        //titre
+        let titre = document.createElement("h1");
+        let titreValue = document.createTextNode("PAUSE");
+        titre.appendChild(titreValue);
+        parentTitre.replaceChild(titre, document.getElementById("titreMenu"));
+        //text
+        let text = document.createElement("p");
+        text.setAttribute('id', 'textMenu');
+        let textValue = document.createTextNode("C'est la fin des essais d'entrainement. Maintenant que vous avez compris, l'expérience commence réellement'.");
+        text.appendChild(textValue);
+        menu.replaceChild(text, document.getElementById("textMenu"));
+        //bouton
+        let next = document.createElement("input");  //changer style
+        next.type = 'button';
+        next.value = "Continuer l'expérience"
+        next.onclick = function(){document.getElementById('menu').style.visibility='hidden'};
+        menu.replaceChild(next, document.getElementById('launch'));
+    }
+    else if (mode == 1){ //pauses suivantes
+        document.getElementById("menu").style.visibility='visible';
+        let text = document.createElement("p");
+        text.setAttribute('id', 'textMenu');
+        let textValue = document.createTextNode("Vous pouvez souffler avant de reprendre l'expérience. Quand vous êtes prêts, cliquez sur le bouton si dessous pour continuer.");
+        text.appendChild(textValue);
+        menu.replaceChild(text, document.getElementById("textMenu"));
+    }
 }
 
 /**
@@ -121,32 +130,33 @@ export function showStart(tps){
  * Ajoute les events correspondants aux boutons 'couleur', 
  * qui disparaissent lorsque l'un d'eux est cliqué
  * @param {string} color la couleur du mot affiché (pour bouton de la bonne réponse)
+ * @param {number} nb vaut 0 si 1ere pause, 1 si pause suivante, 2 si pas de pause
  */
-export function addEventExpe(color){ //TODO : mettre les boutons dans un tableau avec une boucle pour simplifier le code
+export function addEventExpe(color, nb){ //TODO : mettre les boutons dans un tableau avec une boucle pour simplifier le code
     let controller = new AbortController();
     let signal = {signal : controller.signal};
     if(color=="red"){
-        rouge.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500);}, signal);
-        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
-        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
-        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        rouge.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500); showPauseMenu(nb);}, signal);
+        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
+        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
+        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
     }
     else if (color=="blue"){
-        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
-        bleu.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500);}, signal);
-        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
-        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
+        bleu.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500); showPauseMenu(nb);}, signal);
+        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
+        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
     }
     else if (color=="yellow"){
-        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
-        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
-        jaune.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500);}, signal);
-        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
+        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
+        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
+        jaune.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500); showPauseMenu(nb);}, signal);
+        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
     }
     else if (color=="green"){
-        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
-        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
-        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000)}, signal);
-        vert.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500);}, signal);
+        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
+        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
+        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
+        vert.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500); showPauseMenu(nb);}, signal);
     }
 }
