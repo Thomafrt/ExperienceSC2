@@ -13,19 +13,19 @@ function turn(congrence, trials){
     let start = document.getElementById("start");
     //les 5 blocks
     let blockTest = generateBlockRandom(0.5, 16);
-    let block_S1 = generateBlockSequence(congrence,trials);
-    let block_R1 = generateBlockRandom(congrence, trials);
+    let block_S1 = generateBlockSequence(congrence, trials);
+    let block_R1 = generateBlockRandom(congrence, trials, 1);
     let block_S2 = generateBlockSequence(congrence, trials);
-    let block_R2 = generateBlockRandom(congrence, trials);
+    let block_R2 = generateBlockRandom(congrence, trials, 1);
     let blocks = blockTest.concat(block_R1, block_S1, block_R2, block_S2);
-    console.log(blocks);
+    console.log(block_S1);
 
     launch.addEventListener('click',hideMenu); //cache le menu
     start.addEventListener('click',() => { //lance un trial de l'expérience
 
         hideStart();
         let color=blocks.shift();
-        trial(color,blocks.length);
+        trial(color, blocks.length, trials);
 
         //enregistrement des data
         recordMouse();
@@ -39,20 +39,22 @@ function turn(congrence, trials){
  * après 300 ms d'attente, affiche un mot et associe le bon bouton pour le supprimer ou affiche une erreur.
  * @param {string} color la couleur de la bonne réponse
  * @param {number} nbBlocks le nb d'essais restants
+ * @param {number} trials le nb d'essai par bloc voulu
  */
-function trial(col,nbBlocks){
+function trial(col,nbBlocks,trials){
+    let totalTrials = (trials*4)+16;
     if(col == undefined){ //si le tableau est fini
         addText("L'expérience est terminé");
     }
     else{
         setTimeout(() => {
-            addText(col.name);
-            addColor(col.color);
+        addText(col.name);
+        addColor(col.color);
 
-            if(nbBlocks==654 ){ //639
+            if(nbBlocks==totalTrials-16){ //639
                 addEventExpe(col.color, 0);
             }
-            else if(nbBlocks==652 || nbBlocks==650 || nbBlocks==648){ //479-319-159 !!! manque 1
+            else if(nbBlocks==totalTrials-trials || nbBlocks==totalTrials-(2*trials) || nbBlocks==totalTrials-(trials*3)){ //479-319-159 !!! manque 1
                 addEventExpe(col.color, 1);
             }
             else{
@@ -68,4 +70,4 @@ function trial(col,nbBlocks){
 
 
 //MAIN
- turn(0.5, 160);
+ turn(0.8, 40);
