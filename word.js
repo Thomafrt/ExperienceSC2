@@ -28,12 +28,7 @@ export class Word{
 }
 
 
-/**
- * @return un élément aléatoire du tableau colors (génère une couleur aléatoire)
- */
-export function randomColor() { //! pas utile pour le moment
-  return colors[Math.floor(Math.random() * colors.length)];
-}
+//GENERAL
 
 
 /**
@@ -41,7 +36,7 @@ export function randomColor() { //! pas utile pour le moment
  * @param {string} color la couleur du mot
  * @return la chaine incongruente à la couleur du mot (majuscule/francais)
  */
-export function randomName(color) {
+export function otherName(color) {
     if(color=='red'){ return 'VERT';}
     else if(color=='blue'){return 'JAUNE';}
     else if(color=='yellow'){return 'BLEU';}
@@ -54,23 +49,33 @@ export function randomName(color) {
  * @returns la couleur
  */
 export function sameName(color) {
-    if(color=='red'){
-      return names[0];
-    }
-    else if(color=='blue'){
-      return names[1];
-    }
-    else if(color=='yellow'){
-      return names[2];
-    }
-    else if(color=='green'){
-      return names[3];
-    }
+    if(color=='red'){return names[0];}
+    else if(color=='blue'){return names[1];}
+    else if(color=='yellow'){return names[2];}
+    else if(color=='green'){return names[3];}
+}
+
+/**
+ * Ajoute un attribut aux Words qui défini si il faisait parti des Mostly Congruent ou non
+ * @param {Number} part boucle for() 1 ou 2
+ * @param {Number} mode vaut 1 pour (ROUGE/red-VERT/green) de Mostly Congruent, 2 pour (BLEU/blue-JAUNE/yellow) MC
+ * @returns true si MC, false si pas MC
+ */
+export function addMC(part, mode){
+  if(mode == 1 && part == 1 || mode == 2 && part == 2){
+    return true;
+  }
+  else if(mode == 1 && part == 2 || mode == 2 && part == 1){
+    return false;
+  }
 }
 
 
+
+//BLOCK RANDOM
+
 /**
- * Mélange aléatoirement un tableau avec l'algorithme de Fisher-Yates
+ * Mélange aléatoirement un tableau avec l'algorithme de Fisher-Yates Pour block Random
  * @param {array} array
  * @returns le tableau mélangé
  */
@@ -102,7 +107,6 @@ export function shuffle(array) {
   return array;
 }
 
-
 /**
  * Génère un bloc d'éléments aléatoires
  * (sans 2 même couleurs de suite et un nombre de chaque couleurs equivalent).
@@ -115,9 +119,7 @@ export function shuffle(array) {
 export function generateBlockRandom(congru, nb, mode) {
   let block = [];
   nb=nb/4;
-  let c1;
-  let c2;
-  //choix du MC et MI
+  let c1, c2;
   if (mode == 1){
     c1 = nb*congru;
     c2 = nb*(1-congru);
@@ -128,89 +130,136 @@ export function generateBlockRandom(congru, nb, mode) {
   }
   //remplissage
   for(let i = 0; i < c1; i++){
-    let w1=new Word(names[0], 'red');
-    let w2=new Word(names[3], 'green');
-    let w3=new Word(randomName('blue'), 'blue');
-    let w4=new Word(randomName('yellow'), 'yellow');
-    w1.typeCongr = addTypeCongr(1, mode);
-    w2.typeCongr = addTypeCongr(1, mode);
-    w3.typeCongr = addTypeCongr(1, mode);
-    w4.typeCongr = addTypeCongr(1, mode);
+    let w1=new Word(sameName('red'), 'red');
+    let w2=new Word(sameName('green'), 'green');
+    let w3=new Word(otherName('blue'), 'blue');
+    let w4=new Word(otherName('yellow'), 'yellow');
+    w1.MC = addMC(1, mode);
+    w2.MC = addMC(1, mode);
+    w3.MC = addMC(1, mode);
+    w4.MC = addMC(1, mode);
     w1.block='Random';
-    w2.block='RandomR';
+    w2.block='Random';
     w3.block='Random';
     w4.block='Random';
     block.push(w1,w2,w3,w4)
   }
   for(let i = 0; i < c2; i++) {
-    let w1=new Word(randomName('red'), 'red');
-    let w2=new Word(randomName('green'), 'green')
-    let w3=new Word(names[1], 'blue');
-    let w4=new Word(names[2], 'yellow')
-    w1.typeCongr = addTypeCongr(2, mode);
-    w2.typeCongr = addTypeCongr(2, mode);
-    w3.typeCongr = addTypeCongr(2, mode);
-    w4.typeCongr = addTypeCongr(2, mode);
+    let w1=new Word(otherName('red'), 'red');
+    let w2=new Word(otherName('green'), 'green')
+    let w3=new Word(sameName('blue'), 'blue');
+    let w4=new Word(sameName('yellow'), 'yellow')
+    w1.MC = addMC(2, mode);
+    w2.MC = addMC(2, mode);
+    w3.MC = addMC(2, mode);
+    w4.MC = addMC(2, mode);
     w1.block='Random';
     w2.block='Random';
     w3.block='Random';
     w4.block='Random';
     block.push(w1,w2,w3,w4);
   }
- // block=shuffle(block) //mélange
+  block=shuffle(block) //mélange
   return block;
 }
 
+
+
+//BLOCK SEQUENCE
+
 /**
- * Ajoute un attribut aux Words qui défini si il faisait parti des Mostly Congruent ou non
- * @param {Number} part boucle for() 1 ou 2
- * @param {Number} mode vaut 1 pour (ROUGE/red-VERT/green) de Mostly Congruent, 2 pour (BLEU/blue-JAUNE/yellow) MC
- * @returns le bon type en string
+ * Mélange aléatoirement un tableau avec l'algorithme de Fisher-Yates pour block Sequence
+ * @param {array} array
+ * @returns le tableau mélangé
  */
-export function addTypeCongr(part, mode){
-  if(mode == 1 && part == 1 || mode == 2 && part == 2){
-    return 'MC'
-  }
-  else if(mode == 1 && part == 2 || mode == 2 && part == 1){
-    return 'MI';
+export function shuffleSequence(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
   }
 }
-
 
 /**
  * génère un block suivant une séquence posée
  * @param {number} congru la congruence voulue
  * @param {number} nb nombre de trials total --> OBLIGATOIREMENT divisible par 8
+ * @param {number} mode vaut 1 pour (ROUGE/red-VERT/green) de Mostly Congruent, 2 pour (BLEU/blue-JAUNE/yellow) MC
  * @return block, un tableau de nb Words suivant la séquence
  */
-export function generateBlockSequence(congru, nb) {
+export function generateBlockSequence(congru, nb, mode) {
   let block = [];
-  nb=nb/8;
-  console.log((nb*congru),(nb*(1-congru)));
-  for(let i = 0; i < nb*congru; i++){ //congruent
-    for(let j = 0; j < sequence.length; j++){
-      let w = new Word(sameName(sequence[j]), sequence[j]);
-      //w.typeCongr = 'MC';
-      w.blocks = 'Sequence';
-      block.push(w);
-    }
+  nb=nb/4;
+  let blockR = [];
+  let blockB = [];
+  let blockY = [];
+  let blockG = [];
+  let c1,c2;
+  if (mode == 1){
+    c1 = nb*congru;
+    c2 = nb*(1-congru);
   }
-  for(let i = 0; i < nb*(1-congru); i++){ //incongruent
-    console.log('test')
-    for(let j = 0; j < sequence.length; j++){
-      let w = new Word(randomName(sequence[j]), sequence[j]);
-      //w.typeCongr = 'MI';
-      w.blocks = 'Sequence';
-      block.push(w);
+  else if (mode == 2){
+    c1 = nb*(1-congru);
+    c2 = nb*congru;
+  }
+  for(let i = 0; i < c1; i++){
+    let w1=new Word(sameName('red'), 'red');
+    let w2=new Word(sameName('green'), 'green');
+    let w3=new Word(otherName('blue'), 'blue');
+    let w4=new Word(otherName('yellow'), 'yellow');
+    w1.MC = addMC(1, mode);
+    w2.MC = addMC(1, mode);
+    w3.MC = addMC(1, mode);
+    w4.MC = addMC(1, mode);
+    w1.block='Sequence';
+    w2.block='Sequence';
+    w3.block='Sequence';
+    w4.block='Sequence';
+    blockR.push(w1);
+    blockG.push(w2);
+    blockB.push(w3);
+    blockY.push(w4);
+  }
+  for(let i = 0; i < c2; i++) {
+    let w1=new Word(otherName('red'), 'red');
+    let w2=new Word(otherName('green'), 'green')
+    let w3=new Word(sameName('blue'), 'blue');
+    let w4=new Word(sameName('yellow'), 'yellow')
+    w1.MC = addMC(2, mode);
+    w2.MC = addMC(2, mode);
+    w3.MC = addMC(2, mode);
+    w4.MC = addMC(2, mode);
+    w1.block='Sequence';
+    w2.block='Sequence';
+    w3.block='Sequence';
+    w4.block='Sequence';
+    blockR.push(w1);
+    blockG.push(w2);
+    blockB.push(w3);
+    blockY.push(w4);
+  }
+  shuffleSequence(blockR);
+  shuffleSequence(blockB);
+  shuffleSequence(blockY);
+  shuffleSequence(blockG);
+  for(let i = 0; i < nb/2; i++){
+    for (let j=0; j < sequence.length; j++){
+      let col = sequence[j];
+      if(col=='red'){
+        block.push(blockR.shift());
+      }
+      else if(col=='blue'){
+        block.push(blockB.shift());
+      }
+      else if(col=='yellow'){
+        block.push(blockY.shift());
+      }
+      else if(col=='green'){
+        block.push(blockG.shift());
+      }
     }
   }
   return block;
-
-  /**
-   * Faire 4 tableaux (un par color) rempli avec le bon taux de congru
-   * mélanger les tableaux
-   * piocher dans chaque suivant la séquence
-   */
 }
 
 

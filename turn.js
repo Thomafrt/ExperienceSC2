@@ -12,13 +12,13 @@ function turn(congrence, trials){
     let launch = document.getElementById("launch");
     let start = document.getElementById("start");
     //les 5 blocks
-    let blockTest = generateBlockRandom(0.5, 16);
-    let block_S1 = generateBlockSequence(congrence, trials);
+    let blockTest = generateBlockRandom(0.5, 16, 1);
+    let block_S1 = generateBlockSequence(congrence, trials, 1);
     let block_R1 = generateBlockRandom(congrence, trials, 1);
-    let block_S2 = generateBlockSequence(congrence, trials);
+    let block_S2 = generateBlockSequence(congrence, trials, 1);
     let block_R2 = generateBlockRandom(congrence, trials, 1);
-    let blocks = blockTest.concat(block_R1, block_S1, block_R2, block_S2);
-    console.log(block_S1);
+    let blocks = blockTest.concat(block_S1, block_R1, block_S2, block_R2);
+    console.log(blocks);
 
     launch.addEventListener('click',hideMenu); //cache le menu
     start.addEventListener('click',() => { //lance un trial de l'expérience
