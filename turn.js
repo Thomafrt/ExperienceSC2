@@ -23,7 +23,7 @@ function turn(congrence, trials, mode){
 
     for(let i = 0; i < blocks.length-1; i++){
         if(blocks[i].color==blocks[i+1].color) {
-        console.log('couleur similaire ligne : '+i)
+        console.log('couleurs similaires ligne : '+i)
         }
     }
 
@@ -57,7 +57,6 @@ function trial(col,nbBlocks,trials){
         setTimeout(() => {
         addText(col.name);
         addColor(col.color);
-
             if(nbBlocks==totalTrials-16){ 
                 addEventExpe(col.color, 0);
             }
@@ -67,12 +66,8 @@ function trial(col,nbBlocks,trials){
             else{
                 addEventExpe(col.color);
             }
-            
-            
         }, 300);
     }
-
-
 }
 
 

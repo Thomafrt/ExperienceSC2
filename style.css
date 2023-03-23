@@ -12,8 +12,8 @@ body{
     position : absolute;
     color : white;
     background: rgba(92, 92, 92, 0.95);
-    border: solid white 0.5cm ;
-    font-size: 130%;
+    border: solid rgb(209, 209, 209) 0.5cm ;
+    font-size: 110%;
     left : 15%;
     right : 15%;
     top : 10%;
@@ -21,13 +21,12 @@ body{
     display:grid;
     padding-left : 3%;
     padding-right : 3%;
-
 }
 h1{
     margin : 0;
     text-align: center;
 }
-#textMenu{
+#textMenu, #textMenu2{
     margin : 0;
 }
 #deroule{

@@ -71,12 +71,15 @@ export function hideMenu(){
  */
 export function showPauseMenu(mode){
     let menu = document.getElementById('menu');
+    menu.style.fontSize='200%';
     if(mode == 0){// première pause
         document.getElementById("menu").style.visibility='visible';
         let oldTitre = document.getElementById('titreMenu');
         let parentTitre = oldTitre.parentNode;
-        //Supprime consent
+        //Supprime consent, deroule et textMenu2
         menu.removeChild(document.getElementById('consent'));
+        menu.removeChild(document.getElementById('deroule'));
+        menu.removeChild(document.getElementById('textMenu2'));
         //titre
         let titre = document.createElement("h1");
         let titreValue = document.createTextNode("PAUSE");
@@ -91,7 +94,11 @@ export function showPauseMenu(mode){
         //bouton
         let next = document.createElement("input");  //changer style
         next.type = 'button';
-        next.value = "Continuer l'expérience"
+        next.value = "Continuer"
+        next.style.width = '50%';
+        next.style.height = '40%';
+        next.style.background = 'white';
+        next.style.color = 'black';
         next.onclick = function(){document.getElementById('menu').style.visibility='hidden'};
         menu.replaceChild(next, document.getElementById('launch'));
     }
