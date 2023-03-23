@@ -8,17 +8,30 @@ body{
 
 /* Menu*/ 
 #menu{
+    text-align: justify;
     position : absolute;
     color : white;
     background: rgba(92, 92, 92, 0.95);
     border: solid white 0.5cm ;
-    font-size: 25px;
+    font-size: 130%;
     left : 15%;
     right : 15%;
-    top : 15%;
-    bottom : 15%;
+    top : 10%;
+    bottom : 10%;
     display:grid;
-    padding : 3%;
+    padding-left : 3%;
+    padding-right : 3%;
+
+}
+h1{
+    margin : 0;
+    text-align: center;
+}
+#textMenu{
+    margin : 0;
+}
+#deroule{
+    margin:0;
 }
 #check{
    height: 20px;

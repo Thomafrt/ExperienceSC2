@@ -2,7 +2,6 @@
 const colors =['red', 'blue', 'yellow', 'green'];
 //ensemble des noms
 const names = ['ROUGE', 'BLEU', 'JAUNE', 'VERT']
- 
 //séquence posée : 13243142 avec 1 red, 2 blue, 3 yellow, 4 green
 const sequence = ['red', 'yellow', 'blue', 'green', 'yellow','red', 'green', 'blue']
 
@@ -113,7 +112,7 @@ export function shuffle(array) {
  * Fonctionne pour chaque paires de couleur MC (choix du mode)
  * @param {number} congru le pourcentage de congrence dans le block (format : 0.0)
  * @param {number} nb le nombre de trial par block (normalement 160)-> multiple de 4 OBLIGATOIRE (voir meme de 8)
- * @param {number} mode vaut 1 pour (ROUGE/red-VERT/green) de Mostly Congruent, 2 pour (BLEU/blue-JAUNE/yellow) MC
+ * @param {number} mode vaut 1 pour ROUGE/red-VERT/green Mostly Congruent, 2 pour BLEU/blue-JAUNE/yellow MC
  * @return block, un tableau de nb Words randomisés
  */
 export function generateBlockRandom(congru, nb, mode) {
@@ -183,7 +182,7 @@ export function shuffleSequence(array) {
  * génère un block suivant une séquence posée
  * @param {number} congru la congruence voulue
  * @param {number} nb nombre de trials total --> OBLIGATOIREMENT divisible par 8
- * @param {number} mode vaut 1 pour (ROUGE/red-VERT/green) de Mostly Congruent, 2 pour (BLEU/blue-JAUNE/yellow) MC
+ * @param {number} mode vaut 1 pour ROUGE/red-VERT/green Mostly Congruent, 2 pour BLEU/blue-JAUNE/yellow MC
  * @return block, un tableau de nb Words suivant la séquence
  */
 export function generateBlockSequence(congru, nb, mode) {
@@ -265,5 +264,3 @@ export function generateBlockSequence(congru, nb, mode) {
 
 
 //MAIN
-//console.log(generateBlockRandom(0.5 , 160))
-//console.log(generateBlockSequence(0.5 , 20))

@@ -7,18 +7,25 @@ import { recordMouse, stopMouseAndGetFrames} from './mouse_recorder.js';
  * Déroule l'expérience
  * @param {string} congruence - le taux de congruence voulu pour l'expérience (format 0.00)
  * @param {string} trials - le nombre d'essais par block voulu (multiple de 8 OBLIGATOIRE)
+ * @param {number} mode - vaut 1 pour ROUGE/red-VERT/green Mostly Congruent, 2 pour BLEU/blue-JAUNE/yellow MC
  */
-function turn(congrence, trials){
+function turn(congrence, trials, mode){
     let launch = document.getElementById("launch");
     let start = document.getElementById("start");
     //les 5 blocks
-    let blockTest = generateBlockRandom(0.5, 16, 1);
-    let block_S1 = generateBlockSequence(congrence, trials, 1);
-    let block_R1 = generateBlockRandom(congrence, trials, 1);
-    let block_S2 = generateBlockSequence(congrence, trials, 1);
-    let block_R2 = generateBlockRandom(congrence, trials, 1);
+    let blockTest = generateBlockRandom(0.5, 16, mode);
+    let block_S1 = generateBlockSequence(congrence, trials, mode);
+    let block_R1 = generateBlockRandom(congrence, trials, mode);
+    let block_S2 = generateBlockSequence(congrence, trials, mode);
+    let block_R2 = generateBlockRandom(congrence, trials, mode);
     let blocks = blockTest.concat(block_S1, block_R1, block_S2, block_R2);
     console.log(blocks);
+
+    for(let i = 0; i < blocks.length-1; i++){
+        if(blocks[i].color==blocks[i+1].color) {
+        console.log('couleur similaire ligne : '+i)
+        }
+    }
 
     launch.addEventListener('click',hideMenu); //cache le menu
     start.addEventListener('click',() => { //lance un trial de l'expérience
@@ -51,10 +58,10 @@ function trial(col,nbBlocks,trials){
         addText(col.name);
         addColor(col.color);
 
-            if(nbBlocks==totalTrials-16){ //639
+            if(nbBlocks==totalTrials-16){ 
                 addEventExpe(col.color, 0);
             }
-            else if(nbBlocks==totalTrials-trials || nbBlocks==totalTrials-(2*trials) || nbBlocks==totalTrials-(trials*3)){ //479-319-159 !!! manque 1
+            else if(nbBlocks==totalTrials-16-trials || nbBlocks==totalTrials-16-(2*trials) || nbBlocks==totalTrials-16-(trials*3)){
                 addEventExpe(col.color, 1);
             }
             else{
@@ -70,4 +77,4 @@ function trial(col,nbBlocks,trials){
 
 
 //MAIN
- turn(0.8, 40);
+ turn(0.8, 40, 2);

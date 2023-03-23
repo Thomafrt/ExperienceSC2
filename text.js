@@ -85,7 +85,7 @@ export function showPauseMenu(mode){
         //text
         let text = document.createElement("p");
         text.setAttribute('id', 'textMenu');
-        let textValue = document.createTextNode("C'est la fin des essais d'entrainement. Maintenant que vous avez compris, l'expérience commence réellement'.");
+        let textValue = document.createTextNode("C'est la fin des essais d'entrainement. Maintenant que vous avez compris le fonctionnement, cliquez sur le bouton ci-dessous pour commencer l'expérience.");
         text.appendChild(textValue);
         menu.replaceChild(text, document.getElementById("textMenu"));
         //bouton
