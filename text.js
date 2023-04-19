@@ -57,7 +57,7 @@ export function addColor(col){
  * Cache le menu et active le bouton de l'expérience
  */
 export function hideMenu(){
-    if(document.getElementById("check").checked){//si checkbox cochée
+    if(document.getElementById("check1").checked && document.getElementById("check2").checked){//si checkbox cochée
         document.getElementById("menu").style.visibility='hidden';
         document.getElementById('start').disabled = false;
     }
@@ -88,7 +88,7 @@ export function showPauseMenu(mode){
         //text
         let text = document.createElement("p");
         text.setAttribute('id', 'textMenu');
-        let textValue = document.createTextNode("C'est la fin des essais d'entrainement. Maintenant que vous avez compris le fonctionnement, cliquez sur le bouton ci-dessous pour commencer l'expérience.");
+        let textValue = document.createTextNode("C'est la fin des essais d'entrainement. Maintenant que vous avez compris le fonctionnement, cliquez sur le bouton ci-dessous pour commencer réellement l'expérience.");
         text.appendChild(textValue);
         menu.replaceChild(text, document.getElementById("textMenu"));
         //bouton

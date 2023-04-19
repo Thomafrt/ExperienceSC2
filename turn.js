@@ -12,6 +12,7 @@ import { recordMouse, stopMouseAndGetFrames} from './mouse_recorder.js';
 function turn(congrence, trials, mode){
     let launch = document.getElementById("launch");
     let start = document.getElementById("start");
+
     //les 5 blocks
     let blockTest = generateBlockRandom(0.5, 16, mode);
     let block_S1 = generateBlockSequence(congrence, trials, mode);
@@ -21,7 +22,7 @@ function turn(congrence, trials, mode){
     let blocks = blockTest.concat(block_S1, block_R1, block_S2, block_R2);
     console.log(blocks);
 
-    for(let i = 0; i < blocks.length-1; i++){
+    for(let i = 0; i < blocks.length-1; i++){ //check d'éventuelles suites de couleurs
         if(blocks[i].color==blocks[i+1].color) {
         console.log('couleurs similaires ligne : '+i)
         }
@@ -55,17 +56,17 @@ function trial(col,nbBlocks,trials){
     }
     else{
         setTimeout(() => {
-        addText(col.name);
-        addColor(col.color);
-            if(nbBlocks==totalTrials-16){ 
-                addEventExpe(col.color, 0);
-            }
-            else if(nbBlocks==totalTrials-16-trials || nbBlocks==totalTrials-16-(2*trials) || nbBlocks==totalTrials-16-(trials*3)){
-                addEventExpe(col.color, 1);
-            }
-            else{
-                addEventExpe(col.color);
-            }
+            addText(col.name);
+            addColor(col.color);
+                if(nbBlocks==totalTrials-16){ 
+                    addEventExpe(col.color, 0);
+                }
+                else if(nbBlocks==totalTrials-16-trials || nbBlocks==totalTrials-16-(2*trials) || nbBlocks==totalTrials-16-(trials*3)){
+                    addEventExpe(col.color, 1);
+                }
+                else{
+                    addEventExpe(col.color);
+                }
         }, 300);
     }
 }

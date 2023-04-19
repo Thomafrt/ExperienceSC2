@@ -7,6 +7,13 @@
         <script type="module" src="text.js"></script>
         <script type="module" src="turn.js"></script>
         <script type="module" src="word.js"></script>
+        <script>
+            function isChecked(){
+                if(document.getElementById('check1').checked && document.getElementById('check2').checked){
+                    document.getElementById('launch').disabled = false;}
+                else{document.getElementById('launch').disabled = true;}
+            }
+        </script>
     </head>
 
     <body>
@@ -16,7 +23,7 @@
                 <h1 id="titreMenu">Menu</h1>
             </header>
             <p id="textMenu">
-            Bienvenue dans notre expérience sur l'effet Stroop. <br>
+            <strong>Bienvenue dans notre expérience sur l'effet Stroop. </strong><br>
             Dans le cadre de notre cours 'Outils et Méthodes en Sciences Cognitives' nous devons réaliser une expérience
             à partir d'un document scientifique : 
             "Early and late indications of item-specific control in a Stroop mouse tracking study"
@@ -27,25 +34,30 @@
             et la tâche sera de cliquer sur le bouton correspondant à la couleur du mot affiché (le plus vite possible). <br>
             Nous enregistrerons les mouvements de souris, le temps entre l'apparition du stimuli et le clic de réponse, ainsi 
             que vos réponses.<br>
-            Après avoir récolté suffisamment de données, nous réaliserons un traitement statistique de celles-ci afin de
+            Après avoir récolté suffisamment de données, nous réaliserons un traitement statistique sur celles-ci afin de
              mettre en lumière les différents effets.
             <br><br>
-            DÉROULÉ DE L'EXPÉRIENCE (&lt;10minutes) : <br>
+            DÉROULÉ DE L'EXPÉRIENCE (&lt;10minutes) :
             </p>
             <ol id="deroule">
             <li>Clic sur le bouton START pour lancer l'essai.</li>
             <li>Un stimuli s'affiche à l'écran (un mot).</li>
             <li>Vous cliquez sur un des 4 boutons de réponses correspondant à la <strong>COULEUR DU MOT</strong> 
             (et non sa signification) le <strong>plus vite possible</strong>.</li>
+            <li>Si vous faite une erreur une croix rouge s'affiche.</li>
             <li>Répétez ces étapes jusqu'à la fin de l'expérience.</li>
             </ol>
             <p id="textMenu2">
-            Vous aurez d'abord 16 essais pour vous familiariser avec l'expérience, puis 4 fois 40 essais avec des pauses
-            possibles entre chaque si besoin.
+            Vous aurez d'abord 16 essais pour vous familiariser avec l'expérience, puis 4 blocs de 40 essais (avec 
+            des pauses entre chacuns des blocs). <br>
+            Les données ne sont sauvegardés que si vous terminez tous les essais.
             </p>  
             <div id="consent">
-                <input type="checkbox" id="check" onclick="document.getElementById('launch').disabled = false;" name="test">
-                <label>J'ai lu les consignes et consens à participer à cette expérience.</label>
+                <div><input type="checkbox" id="check1" name="test" onclick="isChecked()">
+                <label>Je certifie réaliser cette expérience sur un ordinateur équipé d'une souris, et ne pas avoir de 
+                    problème de vues sans correction.</label></div>
+                <div><input type="checkbox" id="check2" name="test" onclick="isChecked()">
+                <label>J'ai lu les consignes et consens à participer à cette expérience.</label></div>
             </div>
             <button id="launch" disabled>Commencer l'expérience</button>
         </div>
