@@ -48,8 +48,10 @@ AUC : intégral entre la trajectoire de la sourri et la trajectoire optimal
 
 
 TODO :
-- tester le mouse recorder
-- enregistrer le temps de réaction et le temps jusqu'au clic de réponse
-- enregistrer et exporter les données
-- ajouter les message d'encouragement
-- regarder attribut MC en mode 2
+- tester le mouse recorder (implémenter la fonction de fin dans tous les bouton de addEventExpe dans turn.js)
+- implémenter le time recorder (le mouse recorder prends deja le temps ?? sinon le faire en plus)
+- ajouter le message d'encouragement si trop long à bouger la souris (500ms)
+- enregistrer et exporter les données dans un tableau, puis le donner à savedata()
+
+lien de notre serveur : https://rafael.laboissiere.net/m1-miashs-2022-s1/Eichoh7i/
+

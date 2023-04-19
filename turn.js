@@ -22,9 +22,10 @@ function turn(congrence, trials, mode){
     let blocks = blockTest.concat(block_S1, block_R1, block_S2, block_R2);
     console.log(blocks);
 
-    for(let i = 0; i < blocks.length-1; i++){ //check d'éventuelles suites de couleurs
+    //check d'éventuelles suites de couleurs
+    for(let i = 0; i < blocks.length-1; i++){ 
         if(blocks[i].color==blocks[i+1].color) {
-        console.log('couleurs similaires ligne : '+i)
+        console.log('couleurs similaires ligne (15, 55, 95, 135 exclus): '+i)
         }
     }
 
@@ -36,8 +37,8 @@ function turn(congrence, trials, mode){
         trial(color, blocks.length, trials);
 
         //enregistrement des data
-        recordMouse(); //! lancer enregistrement de la souris ici
-        
+        recordMouse();
+        //! lancer enregistrement du temps si besoin
     });
 }
 
@@ -80,7 +81,7 @@ function trial(col,nbBlocks,trials){
  * @param {string} color la couleur du mot affiché (pour bouton de la bonne réponse)
  * @param {number} nb vaut 0 si 1ere pause, 1 si pause suivante, 2 si pas de pause
  */
-export function addEventExpe(color, nb){ //! ajouter la fonction fin d'enregistrement dans tous les addEvent
+export function addEventExpe(color, nb){ //! ajouter la fonction fin d'enregistrement souris et temps dans tous les addEvent
     let controller = new AbortController();
     let signal = {signal : controller.signal};
     if(color=="red"){
