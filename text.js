@@ -50,8 +50,7 @@ export function addColor(col){
 }
 
 
-
-//GESTION ELEMENTS
+//GESTION ELEMENTS (bouton start et menu)
 
 /**
  * Cache le menu et active le bouton de l'expérience
@@ -126,44 +125,4 @@ export function hideStart(){
  */
 export function showStart(tps){
     setTimeout(() => {document.getElementById("start").style.visibility="visible";}, tps);
-}
-
-
-
-//GESTION EVENTS
-
-
-/**
- * Ajoute les events correspondants aux boutons 'couleur', 
- * qui disparaissent lorsque l'un d'eux est cliqué
- * @param {string} color la couleur du mot affiché (pour bouton de la bonne réponse)
- * @param {number} nb vaut 0 si 1ere pause, 1 si pause suivante, 2 si pas de pause
- */
-export function addEventExpe(color, nb){ //TODO : mettre les boutons dans un tableau avec une boucle pour simplifier le code
-    let controller = new AbortController();
-    let signal = {signal : controller.signal};
-    if(color=="red"){
-        rouge.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500); showPauseMenu(nb);}, signal);
-        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-    }
-    else if (color=="blue"){
-        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-        bleu.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500); showPauseMenu(nb);}, signal);
-        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-    }
-    else if (color=="yellow"){
-        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-        jaune.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500); showPauseMenu(nb);}, signal);
-        vert.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-    }
-    else if (color=="green"){
-        rouge.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-        bleu.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-        jaune.addEventListener('click', () => {addError(); controller.abort(); showStart(2000); showPauseMenu(nb);}, signal);
-        vert.addEventListener('click', () => {deleteText(); controller.abort(); showStart(500); showPauseMenu(nb);}, signal);
-    }
 }
