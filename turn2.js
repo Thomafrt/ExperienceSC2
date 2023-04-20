@@ -147,4 +147,4 @@ function addAnswer(type){
 }
 
 //MAIN
- turn(0.8, 40, 1);
+ turn(0.8, 40, 2);
