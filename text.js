@@ -66,7 +66,8 @@ export function hideMenu(){
 }
 
 /**
- * @param {number} mode
+ * Affiche le menu de pause entre les blocks
+ * @param {number} mode vaut 0 si pause après block test, et 1 si pause après autre block
  */
 export function showPauseMenu(mode){
     let menu = document.getElementById('menu');

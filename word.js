@@ -162,6 +162,20 @@ export function generateBlockRandom(congru, nb, mode) {
   return block;
 }
 
+/**
+ * Génère un bloc de Test :
+ * Renvoie un block Random avec les attributs MC mis à 'null' et les attributs block mis à 'test'
+ * @param {number} congru le pourcentage de congrence dans le block (format : 0.0)
+ * @param {number} nb le nombre de trial par block (normalement 160)-> multiple de 4 OBLIGATOIRE (voir meme de 8)
+ * @param {number} mode vaut 1 pour ROUGE/red-VERT/green Mostly Congruent, 2 pour BLEU/blue-JAUNE/yellow MC
+ * @return block, un tableau de nb Words randomisés
+ */
+export function generateBlockTest(congru, nb, mode){
+  let blockTest=generateBlockRandom(congru, nb, mode);
+  blockTest.forEach(element => {element.block='Test'; element.MC=null});
+  return blockTest;
+}
+
 
 
 //BLOCK SEQUENCE
