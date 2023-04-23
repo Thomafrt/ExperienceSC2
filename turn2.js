@@ -1,6 +1,6 @@
 import {addText, deleteText, addError, addColor, hideMenu, showPauseMenu, hideStart, showStart} from './text.js';
 import {generateBlockRandom, generateBlockSequence, generateBlockTest} from './word.js';
-import { recordMouse, stopMouseAndGetFrames} from './mouse_recorder.js';
+import { recordMouse, stopMouseAndGetFrames} from './recorder.js';
 
 const data=[];//le tableau au tout est stocké pour être converti en Json
 

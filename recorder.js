@@ -47,3 +47,14 @@ export function stopMouseAndGetFrames() {
   mouse_recorder.stop();
   return mouse_recorder.frames;
 }
+
+
+/**
+ * Soustrait le temps passé en paramètre au temps actuel (en ms)
+ * @param {Number} startTime un temps pris précédement
+ * @returns un nombre de ms
+ */
+export function getFinalTime(startTime){
+  return Date.now()-startTime;
+}
+

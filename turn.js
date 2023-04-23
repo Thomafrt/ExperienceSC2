@@ -1,8 +1,9 @@
 import {addText, deleteText, addError, addColor, hideMenu, showPauseMenu, hideStart, showStart} from './text.js';
 import {generateBlockRandom, generateBlockSequence, generateBlockTest} from './word.js';
-import { recordMouse, stopMouseAndGetFrames} from './mouse_recorder.js';
+import { recordMouse, stopMouseAndGetFrames, getFinalTime} from './recorder.js';
 
-const data=[];//le tableau au tout est stocké pour être converti en Json
+const data = []; //le tableau au tout est stocké pour être converti en Json
+let time = 0; //la variable qui stocke les temps de départ de chaque essais
 
 
 /**
@@ -36,12 +37,10 @@ function turn(congrence, trials, mode){
 
         hideStart();
         let color=blocks.shift();
-        //console.log(data);
         trial(color, blocks.length, trials);
 
-        //enregistrement des data
         recordMouse();
-        //! lancer enregistrement du temps si besoin
+        time=Date.now();
     });
 }
 
@@ -56,13 +55,11 @@ function turn(congrence, trials, mode){
 function trial(col,nbBlocks,trials){
     let totalTrials = (trials*4)+16;
 
-    data.push(col);
+    data.push(col); //enregistrement des informations de l'essai
     console.log(data);
-
 
     if(col == undefined){ //si le tableau est fini
         addText("L'expérience est terminé");
-        
         //! ajouter savedata(data);
     }
     else{
@@ -139,11 +136,13 @@ export function addEventExpe(color, nb){ //! ajouter la fonction fin d'enregistr
 }
 
 /**
- * Enregistre dans le tableau final la réponse du participant au stimuli
- * @param {*} type false si réponse fausse, 1 si vraie
+ * Enregistre dans le tableau final la réponse du participant au stimuli, et son temps de réponse total
+ * @param {boolean} type false si réponse fausse, true si elle est vraie
  */
 function addAnswer(type){
-        data[data.length-1].answer=type;
+        let tab = data[data.length-1];
+        tab.answer=type;
+        tab.totalTime=getFinalTime(time);
 }
 
 //MAIN
