@@ -49,9 +49,11 @@ AUC : intégral entre la trajectoire de la sourri et la trajectoire optimal
 
 TODO :
 - tester le mouse recorder (implémenter la fonction de fin dans tous les bouton de addEventExpe dans turn.js)
-- implémenter le time recorder (le mouse recorder prends deja le temps ?? sinon le faire en plus)
-- ajouter le message d'encouragement si trop long à bouger la souris (500ms)
-- enregistrer et exporter les données dans un tableau, puis le donner à savedata()
+- implémenter le reaction time recorder : temps entre le début et le premier mouvement du mouse recorder (implémenter dedans)
+- ajouter le message d'encouragement si trop long à bouger la souris (500ms) -> en fonction du reaction time
+- tester savedata()
+
+- étape finale : copier coller turn.js et index.html dans les v2 pour avoir les 2 version de l'expe
 
 lien de notre serveur : https://rafael.laboissiere.net/m1-miashs-2022-s1/Eichoh7i/
 
