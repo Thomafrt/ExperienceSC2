@@ -1,8 +1,10 @@
 import {addText, deleteText, addError, addColor, hideMenu, showPauseMenu, hideStart, showStart} from './text.js';
 import {generateBlockRandom, generateBlockSequence, generateBlockTest} from './word.js';
-import { recordMouse, stopMouseAndGetFrames} from './mouse_recorder.js';
+import { recordMouse, stopMouseAndGetFrames, getFinalTime} from './recorder.js';
+import {savedata} from './savedata2.js';
 
-const data=[];//le tableau ou tout est stocké pour être converti en Json
+const data = []; //le tableau au tout est stocké pour être converti en Json
+let time = 0; //la variable qui stocke les temps de départ de chaque essais
 
 
 /**
@@ -36,13 +38,11 @@ function turn(congrence, trials, mode){
 
         hideStart();
         let color=blocks.shift();
-        //console.log(data);
         trial(color, blocks.length, trials);
 
-        //enregistrement des data
         recordMouse();
         start_recording();
-        //! lancer enregistrement du temps si besoin
+        time=Date.now();
     });
 }
 
@@ -50,21 +50,19 @@ function turn(congrence, trials, mode){
  * Déroulé d'un essai :
  * Détecte si on est arrivé au bout du tableau de mots, sinon
  * après 300 ms d'attente, affiche un mot et associe le bon bouton pour le supprimer ou affiche une erreur.
- * @param {string} color la couleur de la bonne réponse
+ * @param {string} col la couleur de la bonne réponse
  * @param {number} nbBlocks le nb d'essais restants
  * @param {number} trials le nb d'essai par bloc voulu
  */
 function trial(col,nbBlocks,trials){
     let totalTrials = (trials*4)+16;
 
-    data.push(col);
+    data.push(col); //enregistrement des informations de l'essai
     console.log(data);
-
 
     if(col == undefined){ //si le tableau est fini
         addText("L'expérience est terminé");
-        
-        //! ajouter savedata(data);
+        savedata(data); //enregistrement final
     }
     else{
         setTimeout(() => {
@@ -99,52 +97,57 @@ export function addEventExpe(color, nb){ //! ajouter la fonction fin d'enregistr
     let signal = {signal : controller.signal};
     if(color=="red"){
         rouge.addEventListener('click', () => {//la bonne réponse
-            deleteText(); controller.abort(); showStart(500); showPauseMenu(nb); addAnswer(true); end_trial(false);}, signal);
+            deleteText(); controller.abort(); showStart(500); showPauseMenu(nb); addAnswer(true);}, signal);
         bleu.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
         jaune.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
         vert.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
     }
     else if (color=="blue"){
         rouge.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
         bleu.addEventListener('click', () => {//la bonne réponse
-            deleteText(); controller.abort(); showStart(500); showPauseMenu(nb); addAnswer(true); end_trial(false);}, signal);
+            deleteText(); controller.abort(); showStart(500); showPauseMenu(nb); addAnswer(true);}, signal);
         jaune.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
         vert.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
     }
     else if (color=="yellow"){
         rouge.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
         bleu.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
         jaune.addEventListener('click', () => {//la bonne réponse
-            deleteText(); controller.abort(); showStart(500); showPauseMenu(nb); addAnswer(true); end_trial(false);}, signal);
+            deleteText(); controller.abort(); showStart(500); showPauseMenu(nb); addAnswer(true);}, signal);
         vert.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
     }
     else if (color=="green"){
         rouge.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
         bleu.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
         jaune.addEventListener('click', () => {
-            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false); end_trial(true);}, signal);
+            addError(); controller.abort(); showStart(2000); showPauseMenu(nb); addAnswer(false);}, signal);
         vert.addEventListener('click', () => {//la bonne réponse
-            deleteText(); controller.abort(); showStart(500); showPauseMenu(nb); addAnswer(true); end_trial(false);}, signal);
+            deleteText(); controller.abort(); showStart(500); showPauseMenu(nb); addAnswer(true);}, signal);
     }
 }
 
 /**
- * Enregistre dans le tableau final la réponse du participant au stimuli
- * @param {*} type false si réponse fausse, 1 si vraie
+ * Enregistre dans le tableau final la réponse du participant au stimuli, et son temps de réponse total
+ * @param {boolean} type false si réponse fausse, true si elle est vraie
  */
 function addAnswer(type){
-        data[data.length-1].answer=type;
+        let tab = data[data.length-1];
+        tab.answer=type;
+        tab.totalTime=getFinalTime(time);
+        tab.mouse_info=stopMouseAndGetFrames();
+        tab.AUC=stop_recording();
+        console.log(tab);
 }
 
 //MAIN
@@ -152,21 +155,7 @@ function addAnswer(type){
 
 
 
-
-
-var mouse_info = [];
-var failed_trial= [];
-var times = [];
-var AUC = [];
-
-function end_trial(as_failed_trial) {
-    failed_trial.push(as_failed_trial);
-    mouse_info.push(stopMouseAndGetFrames());
-    console.log("mouse info : " + mouse_info);
-    AUC.push(stop_recording());
-    times.push(Date.now()-time_start);
-}
-
+ //? DEPLACER TOUT CA dans recorder.js ?
 
  var points;
  var time_start;
