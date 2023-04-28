@@ -1,6 +1,6 @@
 import {addText, deleteText, addError, addColor, hideMenu, showPauseMenu, hideStart, showStart} from './text.js';
 import {generateBlockRandom, generateBlockSequence, generateBlockTest} from './word.js';
-import { recordMouse, stopMouseAndGetFrames, getFinalTime, start_recording, stop_recording} from './recorder.js';
+import { recordMouse, stopMouseAndGetFrames, getFinalTime, start_recording, stop_recording, event_mouse_move} from './recorder.js';
 import {savedata} from './savedata2.js';
 
 const data = []; //le tableau au tout est stocké pour être converti en Json
@@ -43,6 +43,7 @@ function turn(congrence, trials, mode){
         recordMouse();
         start_recording();
         time=Date.now();
+        start.addEventListener("mouse_move", event_mouse_move);
     });
 }
 
@@ -147,6 +148,7 @@ function addAnswer(type){
         tab.totalTime=getFinalTime(time);
         tab.mouse_info=stopMouseAndGetFrames();
         tab.AUC=stop_recording();
+        //tab.mouse_move_time=
         console.log(tab);
 }
 

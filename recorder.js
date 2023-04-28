@@ -89,21 +89,35 @@ export function calculate_AUC(points) {
    const startY = points.Y[0];
    const endX = points.X[points.X.length - 1];
    const endY = points.Y[points.Y.length - 1];
-   // Calculer la distance en ligne droite
-   const distance = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
+   // Calculer la distance en ligne droite (pytagor ma geule)
+   const distance = Math.sqrt(Math.pow((endX - startX),2) + Math.pow((endY - startY),2));
    // Calculer Air Under Curve
    let area = 0;
-   for (let i = 1; i < points.X.length; i++) {
-       const x1 = points.X[i - 1];
-       const y1 = points.Y[i - 1];
-       const x2 = points.X[i];
-       const y2 = points.Y[i];
+   for (let ii = 1; ii < points.X.length; ii++) {
+       const x1 = points.X[ii - 1];
+       const y1 = points.Y[ii - 1];
+       const x2 = points.X[ii];
+       const y2 = points.Y[ii];
        const dx = x2 - x1;
        const dy = y2 - y1;
-       const distanceToLine = (dx === 0 && dy === 0) ? 0 : Math.abs(dy * startX - dx * startY + x2 * y1 - y2 * x1) / Math.sqrt(dx ** 2 + dy ** 2);
-       //const distanceToLine = Math.abs(dy * startX - dx * startY + x2 * y1 - y2 * x1) / Math.sqrt(dx ** 2 + dy ** 2);
+       const distanceToLine = (dx === 0 && dy === 0) ? 0 : Math.abs(dy * startX - dx * startY + x2 * y1 - y2 * x1) / Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2));
        area += distanceToLine;
    }
    const AUC = area / distance;
    return AUC; 
+}
+
+
+
+
+
+
+var time_start_moved =[];
+
+export function event_mouse_move() {
+  let current_time = Date.now();
+  let timeDifference = current_time - time_start;
+  console.log("MM: " + timeDifference);
+  time_start_moved.push(timeDifference)
+  btnstart.removeEventListener("mouse_move", event_mouse_move);
 }
