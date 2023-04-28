@@ -1,6 +1,6 @@
 import {addText, deleteText, addError, addColor, hideMenu, showPauseMenu, hideStart, showStart} from './text.js';
 import {generateBlockRandom, generateBlockSequence, generateBlockTest} from './word.js';
-import { recordMouse, stopMouseAndGetFrames, getFinalTime} from './recorder.js';
+import { recordMouse, stopMouseAndGetFrames, getFinalTime, start_recording, stop_recording} from './recorder.js';
 import {savedata} from './savedata2.js';
 
 const data = []; //le tableau au tout est stocké pour être converti en Json
@@ -152,58 +152,3 @@ function addAnswer(type){
 
 //MAIN
  turn(0.8, 40, 2);
-
-
-
- //? DEPLACER TOUT CA dans recorder.js ?
-
- var points;
- var time_start;
-
- function start_recording() {
-    // Réinitialisation de la liste des points de la sourie
-    points = { X: [], Y: [], times: [] };
-    time_start = Date.now();
-    window.addEventListener("mousemove", calculate_event_AUC);
-}
-
-function stop_recording() {
-    window.removeEventListener("mousemove", calculate_event_AUC);
-    return calculate_AUC(points);
-}
-
-function calculate_event_AUC(event) {
-    let current_time = Date.now();
-    points.X.push(event.clientX);
-    points.Y.push(event.clientY);
-    points.times.push((current_time-time_start));              
-}
-
-function calculate_AUC(points) {
-    // Obtenir les coordonnées des points de départ et d'arrivée
-    const startX = points.X[0];
-    const startY = points.Y[0];
-    const endX = points.X[points.X.length - 1];
-    const endY = points.Y[points.Y.length - 1];
-    
-    // Calculer la distance en ligne droite
-    const distance = Math.sqrt((endX - startX) ** 2 + (endY - startY) ** 2);
-    
-    // Calculer Air Under Curve
-    let area = 0;
-    for (let i = 1; i < points.X.length; i++) {
-        const x1 = points.X[i - 1];
-        const y1 = points.Y[i - 1];
-        const x2 = points.X[i];
-        const y2 = points.Y[i];
-        const dx = x2 - x1;
-        const dy = y2 - y1;
-        const distanceToLine = (dx === 0 && dy === 0) ? 0 : Math.abs(dy * startX - dx * startY + x2 * y1 - y2 * x1) / Math.sqrt(dx ** 2 + dy ** 2);
-
-        //const distanceToLine = Math.abs(dy * startX - dx * startY + x2 * y1 - y2 * x1) / Math.sqrt(dx ** 2 + dy ** 2);
-        area += distanceToLine;
-    }
-
-    const AUC = area / distance;
-    return AUC; 
-}
