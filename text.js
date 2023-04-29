@@ -34,11 +34,19 @@ export function deleteText(){
 /**
  * Ajoute un message d'erreur
  */
-export function addError(){
-    deleteText();
-    addText('X');
-    document.getElementById("text").style.color='red';
-    setTimeout(deleteText, 2000);
+export function addError(nb){
+    if(nb==1){
+        deleteText();
+        addText('X');
+        document.getElementById("text").style.color='red';
+        setTimeout(deleteText, 2000);
+    }
+    else if(nb==2){
+        document.getElementById("error").innerHTML = 'Essayez de répondre le plus vite possible !';
+        document.getElementById("error").style.color='red';
+        setTimeout(()=>{document.getElementById("error").innerHTML =' ';}, 3000);
+    }
+
 }
 
 /**

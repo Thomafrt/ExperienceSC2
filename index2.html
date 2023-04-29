@@ -14,7 +14,7 @@
         </script>
     </head>
 
-    <body>
+    <body id="body">
 
         <div id="menu">
             <header>
@@ -38,7 +38,7 @@
             DÉROULÉ DE L'EXPÉRIENCE (&lt;10minutes) :
             </p>
             <ol id="deroule">
-            <li>Clic sur le bouton START pour lancer l'essai.</li>
+            <li>Clic sur le bouton GO pour lancer l'essai.</li>
             <li>Un stimuli s'affiche à l'écran (un mot).</li>
             <li>Vous cliquez sur un des 4 boutons de réponses correspondant à la <strong>COULEUR DU MOT</strong> 
             (et non sa signification) le <strong>plus vite possible</strong>.</li>
@@ -77,7 +77,11 @@
             </div>
 
             <div>
-                <input type="button" value="START" id="start" disable>
+                <input type="button" value="GO" id="start" disable>
+            </div>
+
+            <div>
+                <p id="error"> </p>
             </div>
             
     </body>

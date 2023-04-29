@@ -1,37 +1,26 @@
 var mouse_recorder = {
-    
   moveListener:function() {
     var that = this;
-
-
-
     document.onmousemove = (function(e) {
       if(that.state == 1) {
         that.frames.push([e.clientX, e.clientY]);
       }
     });
-
   },
-
-
   record:function() {
     var that = this;
     that.frames = [];//reinitialize
     that.state = 1;
     that.startTime = new Date().getTime()/1000;
   },
-
   stop:function() {
     var that = this;
     that.state = 2;
     that.endTime = new Date().getTime()/1000;
   },
-
 };
-
 mouse_recorder.state = 2; //1 = Recording | 2 = Stopped
 mouse_recorder.frames = [];
-
 /*
 * Listen for the mouse movements
 */
@@ -47,7 +36,6 @@ export function stopMouseAndGetFrames() {
   mouse_recorder.stop();
   return mouse_recorder.frames;
 }
-
 
 /**
  * Soustrait le temps passé en paramètre au temps actuel (en ms)
@@ -108,16 +96,14 @@ export function calculate_AUC(points) {
 }
 
 
-
-
-
-
-var time_start_moved =[];
-
+let time_start_moved=0;
 export function event_mouse_move() {
   let current_time = Date.now();
-  let timeDifference = current_time - time_start;
-  console.log("MM: " + timeDifference);
-  time_start_moved.push(timeDifference)
-  btnstart.removeEventListener("mouse_move", event_mouse_move);
+  time_start_moved = current_time - time_start;
+  //console.log("MM: " + time_start_moved);
+  document.getElementById('body').removeEventListener("mousemove", event_mouse_move, true);
+}
+
+export function getReactTime(){
+  return time_start_moved;
 }
