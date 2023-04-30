@@ -16,7 +16,6 @@ let time = 0; //la variable qui stocke les temps de départ de chaque essais
 function turn(congrence, trials, mode){
     let launch = document.getElementById("launch");
     let start = document.getElementById("start");
-    data['typeExpe']=2;
 
     //les 5 blocks
     let blockTest = generateBlockTest(0.5, 16, mode);
